@@ -3,7 +3,7 @@
  </Hst.Story>
  
  <script lang="ts">
-  import Button from '../src/lib/components/Button.svelte';
+  import Button from '../src/components/Button.svelte';
   export let Hst;
  </script>
  

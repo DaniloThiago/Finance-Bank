@@ -1,13 +1,11 @@
 <Hst.Story>
-  <Menu title="Dashboard" classe="selected" icon={mdiViewDashboard } />
+  <Menu title="Dashboard" classe="selected" icon="dashboard" />
   <br>
-  <Menu title="My Wallet" icon={mdiWalletBifold} />
+  <Menu title="My Wallet" icon="wallet" />
  </Hst.Story>
  
  <script lang="ts">
-  // https://pictogrammers.com/library/mdi/
-  import { mdiViewDashboard, mdiWalletBifold } from '@mdi/js';
-  import Menu from '../src/lib/components/Menu.svelte'
+  import Menu from '../src/components/Menu.svelte'
   export let Hst;
  </script>
  

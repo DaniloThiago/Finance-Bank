@@ -5,6 +5,6 @@
 </Hst.Story>
  
 <script lang="ts">
-  import Total from '../src/lib/components/Total.svelte'
+  import Total from '../src/components/Total.svelte'
   export let Hst;
 </script>
