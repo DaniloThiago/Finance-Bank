@@ -1,0 +1,27 @@
+{
+  "name": "fbf",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "stories": "histoire dev"
+  },
+  "devDependencies": {
+    "@histoire/plugin-svelte": "^0.16.1",
+    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@tsconfig/svelte": "^4.0.1",
+    "svelte": "^3.57.0",
+    "svelte-check": "^2.10.3",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  },
+  "dependencies": {
+    "@jamescoyle/svelte-icon": "^0.1.1",
+    "@mdi/js": "^7.2.96"
+  }
+}

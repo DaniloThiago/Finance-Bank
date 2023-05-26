@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
+:root {
+  --font-family: 'Poppins', sans-serif;
+  --s-regular: 400;
+  --s-semi-bold: 600;
+  --s-bold: 700;
+  --s-black: 900;
+  --c-ebony-clay: #1D1D41;
+  --c-green-haze: #02B15A;
+  --c-green-haze-15: #02B15A26;
+  --c-lava-red: #E41414;
+  --c-lava-red-15: #E4141426;
+  --c-malibu: #64CFF6;
+  --c-palatinate-blue: #3427E8;
+  --c-purple-blue: #6359e9;
+  --c-white: #FFFFFF;
+  --c-wild-blue-yonder: #8C89B4;
+}
+
+* {
+  font-family: var(--font-family);
+  font-weight: var(--s-regular);
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.aligin-center {
+  align-items: center;
+}
+
+.aligin-end {
+  align-items: self-end;
+}
+
+.aligin-start {
+  align-items: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
