@@ -2,13 +2,15 @@
   import { menuItems } from '../data/menu';
   import Menu from '../components/Menu.svelte';
 
-  let activeMenu = 0; // Índice do menu ativo inicialmente
+  let activeMenu = parseInt(localStorage.getItem('activeMenu')) || 0; 
 
   function setActiveMenu(index) {
     activeMenu = index;
+    localStorage.setItem('activeMenu', index)
   }
 </script>
 
+<!-- Navbar -->
 <nav class="d-flex flex-col justify-start">
   <article class="d-flex aligin-center">
     <img src="./src/assets/logo.svg" alt="logo">
@@ -28,6 +30,15 @@
     {/each}
   </div>
 </nav>
+
+<!-- Current Component -->
+<section>
+  {#each menuItems as item, index}
+  {#if activeMenu === index}
+    <svelte:component this={item.component} />
+  {/if}
+{/each}
+</section>
 
 <style type="text/scss" lang="scss">
   nav {
@@ -71,5 +82,11 @@
       gap: 1rem;
       margin-left: $ml;
     }
+  }
+
+  section {
+    padding-left: 32rem;
+    height: 100vh;
+    width: calc(100vw - 32rem);;
   }
 </style>
