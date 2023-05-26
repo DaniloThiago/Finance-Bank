@@ -1,10 +1,10 @@
 <script lang="ts">
   export let icon: string = '';
-  export let classe: string = '';
   export let title: string = '';
+  export let active: boolean = false;
 </script>
 
-<div class={classe}>
+<div class:selected={active} on:click on:keypress>
   <img src={`./src/assets/icons/${icon}.svg`} alt="Icon" />
   <span>
     {title}

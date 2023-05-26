@@ -1,5 +1,5 @@
 <Hst.Story>
-  <Menu title="Dashboard" classe="selected" icon="dashboard" />
+  <Menu title="Dashboard" active={true} icon="dashboard" />
   <br>
   <Menu title="My Wallet" icon="wallet" />
  </Hst.Story>
