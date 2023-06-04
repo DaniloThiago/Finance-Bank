@@ -1,20 +1,18 @@
 <script lang="ts">
-  import SvgIcon from '@jamescoyle/svelte-icon';
-
-  export let icon: string; // string type icon
-  export let classe: string = '';
+  export let icon: string = '';
   export let title: string = '';
+  export let active: boolean = false;
 </script>
 
-<div class={classe}>
-  <SvgIcon type="mdi" path={icon}></SvgIcon>
+<div class:selected={active} on:click on:keypress>
+  <img src={`./src/assets/icons/${icon}.svg`} alt="Icon" />
   <span>
     {title}
   </span>
 </div>
 
 <style type="text/scss" lang="scss">
-  @import "../../../static/style.scss";
+  @import "./static/style.scss";
   div {
     padding: 1.45rem 2.45rem;
     font-size: 1.6rem;

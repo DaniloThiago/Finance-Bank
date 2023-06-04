@@ -1,18 +1,16 @@
 <script lang="ts">
-  import SvgIcon from '@jamescoyle/svelte-icon';
-  import { mdiTrendingDown, mdiTrendingUp } from '@mdi/js';
   export let type: string = 'up';
   export let text: string = 'Total Income';
   export let value: number = 62100;
   export let percent: number = 0;
-  let icon = type == 'up' ? mdiTrendingUp : mdiTrendingDown;
+  let icon = type == 'up' ? 'trending_up' : 'trending_down';
   let color = type === 'up' ? 'green-haze' : 'lava-red';
 </script>
 
 <article>
   <div class="d-flex aligin-center justify-between">
     <span class="icon d-flex aligin-center justify-center {color}">
-      <SvgIcon size="30" type="mdi" path={icon}></SvgIcon>
+      <img src={`./src/assets/icons/${icon}.svg`} alt="Icon" />
     </span>
     <span>
       <p>{text}</p>
@@ -25,7 +23,7 @@
 </article>
 
 <style type="text/scss" lang="scss">
-  @import "../../../static/style.scss";
+  @import "./static/style.scss";
   article {
     padding: 3.3rem 2.7rem;
     background-color: var(--c-ebony-clay);
@@ -42,6 +40,9 @@
         width: 4.5rem;
         height: 4.5rem;
         border-radius: 1rem;
+        img {
+          width: 3rem;
+        }
         
         &.lava-red {
           background-color: var(--c-purple-blue);

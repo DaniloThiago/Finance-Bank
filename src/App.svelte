@@ -1,5 +1,6 @@
 <script>
-  import Total from "./lib/components/Total.svelte";
+  import Home from "./pages/Home.svelte";
 
 </script>
-<Total></Total>
+
+<Home></Home>

@@ -5,6 +5,7 @@
   --s-semi-bold: 600;
   --s-bold: 700;
   --s-black: 900;
+  --c-haiti: #141332;
   --c-ebony-clay: #1D1D41;
   --c-green-haze: #02B15A;
   --c-green-haze-15: #02B15A26;
@@ -29,6 +30,10 @@
   display: flex;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
 .aligin-center {
   align-items: center;
 }
@@ -43,6 +48,10 @@
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-start {
+  justify-content: start;
 }
 
 .justify-around {
