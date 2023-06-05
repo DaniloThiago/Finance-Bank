@@ -2,9 +2,6 @@
   import { onMount } from 'svelte';
   import Highcharts from 'highcharts';
 
-  let splineChart;
-  let pieChart;
-
   onMount(() => {
     const splineData = [
       { month: 'Janeiro', value: 1000 },
@@ -25,7 +22,7 @@
     const splineValues = splineData.map(item => item.value);
 
     // @ts-ignore
-    splineChart = Highcharts.chart('spline-chart-container', {
+    Highcharts.chart('spline-chart-container', {
       chart: {
         styledMode: true,
         type: 'spline'
@@ -77,7 +74,7 @@
     }));
 
     // @ts-ignore
-    pieChart = Highcharts.chart('pie-chart-container', {
+    Highcharts.chart('pie-chart-container', {
       chart: {
         styledMode: true,
         type: 'pie'
