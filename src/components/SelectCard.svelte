@@ -36,16 +36,72 @@
   export let quantidadeExibida = 3;
 </script>
 
-<style>
+<article>
+  <button on:click={anterior}>
+    <img src="./src/assets/icons/arrow.svg" alt="Anterior">
+  </button>
+  <section>
+    {#each getIndicesExibicao(indiceAtual) as card}
+      <div class="card">
+        <h2>{card.nome}</h2>
+        <p>Valor: {card.valor}</p>
+      </div>
+    {/each}
+  </section>
+  <button on:click={proximo}>
+    <img src="./src/assets/icons/arrow.svg" alt="Próximo">
+  </button>
+</article>
+
+
+<style lang="scss">
   article {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+
+    section {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
   }
 
   button {
     cursor: pointer;
-    font-size: 4rem;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    &:first-child {
+      transform: scaleX(-1);
+    }
+
+    img {
+      width: 4rem;
+      transition: all ease-in-out 0.2s;
+    }
+
+    &:hover {
+      img {
+        animation: animacao 0.8s infinite;
+        position: relative;
+      }
+    }
+  }
+
+  @keyframes animacao {
+    0% {
+      transform: translateX(-0.4rem);
+    }
+    50% {
+      transform: translateX(0rem);
+    }
+    100% {
+      transform: translateX(-0.4rem);
+    }
   }
 
   .card {
@@ -55,18 +111,3 @@
     width: 100%;
   }
 </style>
-
-<article>
-  <button on:click={anterior}>
-    &lt;
-  </button>
-  {#each getIndicesExibicao(indiceAtual) as card}
-    <div class="card">
-      <h2>{card.nome}</h2>
-      <p>Valor: {card.valor}</p>
-    </div>
-  {/each}
-  <button on:click={proximo}>
-    &gt;
-  </button>
-</article>

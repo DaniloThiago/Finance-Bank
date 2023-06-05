@@ -12,7 +12,7 @@
 
 <!-- Navbar -->
 <nav class="d-flex flex-col justify-start">
-  <article class="d-flex aligin-center">
+  <article class="d-flex align-center">
     <img src="./src/assets/logo.svg" alt="logo">
     <abbr>
       FB

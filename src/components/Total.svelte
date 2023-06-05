@@ -8,15 +8,15 @@
 </script>
 
 <article>
-  <div class="d-flex aligin-center justify-between">
-    <span class="icon d-flex aligin-center justify-center {color}">
+  <div class="d-flex align-center justify-between">
+    <span class="icon d-flex align-center justify-center {color}">
       <img src={`./src/assets/icons/${icon}.svg`} alt="Icon" />
     </span>
     <span>
       <p>{text}</p>
       <p>$ {value.toFixed(2)}</p>
     </span>
-    <span class="icon d-flex aligin-center justify-center {color}">
+    <span class="icon d-flex align-center justify-center {color}">
       +{percent}%
     </span>
   </div>
