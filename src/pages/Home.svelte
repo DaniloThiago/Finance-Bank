@@ -85,8 +85,9 @@
   }
 
   section {
-    padding-left: 32rem;
+    padding: 1rem 1rem 1rem 33rem;
     height: 100vh;
-    width: calc(100vw - 32rem);;
+    width: 100vw;
+    box-sizing: border-box;
   }
 </style>
