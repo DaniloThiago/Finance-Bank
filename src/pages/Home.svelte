@@ -43,18 +43,18 @@
 <style type="text/scss" lang="scss">
   nav {
     $ml: 2.9rem;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 32rem;
     height: 100vh;
     background-color: var(--c-ebony-clay);
-    padding: 1rem;
-    gap: 1rem;
+    gap: var(--gap);
+    overflow: auto;
 
     article {
       color: var(--c-white);
-      margin: 6rem 0;
+      margin: 5.8rem 0;
       margin-left: $ml;
       img {
         width: 4.3rem;
@@ -65,7 +65,6 @@
         position: relative;
         font-size: calc(#{$size} + 1.3rem);
         line-height: $size;
-        font-family: var(--font-family);
         font-weight: var(--s-semi-bold);
         margin-left: 2.5rem;
         sup {
@@ -79,15 +78,15 @@
     }
     #menus {
       height: 100%;
-      gap: 1rem;
+      gap: var(--gap);
+      padding-bottom: var(--gap);
       margin-left: $ml;
     }
   }
 
   section {
-    padding: 1rem 1rem 1rem 33rem;
+    padding: var(--gap) 0 0 calc(33rem + var(--gap));
     height: 100vh;
-    width: 100vw;
     box-sizing: border-box;
   }
 </style>
