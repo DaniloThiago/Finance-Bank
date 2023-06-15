@@ -1,4 +1,5 @@
 <script lang="ts">
+  export let classe: string = '';
   export let type: string = 'up';
   export let text: string = 'Total Income';
   export let value: number = 62100;
@@ -7,7 +8,7 @@
   let color = type === 'up' ? 'green-haze' : 'lava-red';
 </script>
 
-<article>
+<article class={classe}>
   <div class="d-flex align-center justify-between">
     <span class="icon d-flex align-center justify-center {color}">
       <img src={`./src/assets/icons/${icon}.svg`} alt="Icon" />

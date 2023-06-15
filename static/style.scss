@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;900&display=swap');
 @import url("https://code.highcharts.com/css/highcharts.css");
 :root {
-  --font-family: 'Poppins', sans-serif;
+  --font-family-poppins: 'Poppins', sans-serif;
+  --font-family-jakarta: 'Plus Jakarta Sans', sans-serif;
   --s-regular: 400;
   --s-semi-bold: 600;
   --s-bold: 700;
+  --s-semi-black: 800;
   --s-black: 900;
   --c-black: #000000;
   --c-haiti: #141332;
@@ -21,6 +23,7 @@
   --c-jasmine-purple: #9C2CF3;
   --c-ultramarina-blue: #3A6FF9;
   --g-master: linear-gradient(180deg, var(--c-jasmine-purple) 0%, var(--c-ultramarina-blue) 100%);
+  --gap: 2.6rem
 }
 
 .highcharts-legend-item text,
@@ -28,12 +31,22 @@
   font-size: 14px !important;
 }
 
+.highcharts-container {
+  .highcharts-title {
+    font-size: 2rem;
+  }
+  border-radius: 2rem;
+  .highcharts-background {
+    fill: transparent;
+  }
+}
+
 .highcharts-axis-labels.highcharts-xaxis-labels text {
   font-size: 10px;
 }
 
 * {
-  font-family: var(--font-family);
+  font-family: var(--font-family-jakarta);
   font-weight: var(--s-regular);
   box-sizing: border-box;
   padding: 0;
@@ -78,4 +91,12 @@
 
 .justify-evenly {
   justify-content: space-evenly;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-50 {
+  width: 50%;
 }

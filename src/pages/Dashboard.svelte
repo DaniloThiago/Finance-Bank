@@ -2,6 +2,7 @@
   import SelectCard from "../components/SelectCard.svelte";
   import { onMount } from "svelte";
   import Highcharts from "highcharts";
+  import Total from "../components/Total.svelte";
 
   onMount(() => {
     const splineData = [
@@ -47,8 +48,6 @@
       data: item.hist.map((histItem) => histItem.value),
     }));
 
-    console.log(splineCategories);
-
     // @ts-ignore
     Highcharts.chart("spline-chart-container", {
       chart: {
@@ -56,7 +55,7 @@
         type: "spline",
       },
       title: {
-        text: "Gastos Cartões",
+        text: "",
       },
       xAxis: {
         categories: splineCategories,
@@ -82,13 +81,78 @@
   });
 </script>
 
-<div id="spline-chart-container" />
-<SelectCard quantidadeExibida={3} />
+<div class="container">
+  <div class="item content-1">
+    <div class="d-flex gap-1">
+      <Total type="up" text="saldo da Conta" value={632.0} percent={1.29} classe="w-50" />
+      <Total type="down" text="Total de Gastos" value={632.0} percent={1.29} classe="w-50" />
+    </div>
+    <div id="spline-chart-container" />
+    <div class="d-flex gap-1">
+      <Total type="up" text="saldo da Conta" value={632.0} percent={1.29} classe="w-50" />
+      <Total type="down" text="Total de Gastos" value={632.0} percent={1.29} classe="w-50" />
+    </div>
+  </div>
+  <div class="item content-2">
+    <SelectCard quantidadeExibida={1} />
+  </div>
+</div>
 
-<style>
+<style lang="scss">
+  .gap-1 {
+    gap: var(--gap);;
+  }
   #spline-chart-container {
+    position: relative;
     width: 100%;
     height: 400px;
     display: inline-block;
+    background-color: var(--c-ebony-clay);
+    padding-top: 10rem;
+    border-radius: 2rem;
+
+    &:before {
+      content: 'Análise de Dados';
+      position: absolute;
+      color: var(--c-white);
+      font-size: 2rem;
+      top: 3rem;
+      left: 3rem;
+    }
+  }
+
+  .container {
+    display: grid;
+    width: calc(100vw - (33rem + var(--gap) * 3));
+    height: 100vh;
+    grid-template-columns: 1fr 0.5fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: var(--gap);
+    grid-template-areas: "content-1 content-2";
+
+    .item {
+      padding-bottom: var(--gap);
+      > div.d-flex {
+        justify-content: space-between;
+        article {
+          width: 50vw !important;
+        }
+      } 
+    }
+  }
+
+  .content-1 {
+    grid-area: content-1;
+  }
+
+  .content-2 {
+    grid-area: content-2;
+  }
+  /* OTHER STYLES */
+  .content-1,
+  .content-2 {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);;
   }
 </style>
