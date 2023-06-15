@@ -1,19 +1,11 @@
 <script lang="ts">
+  import Card from './Card.svelte'
+
   let cartoes = [
-    { nome: 'Cartão 1', valor: 30 },
-    { nome: 'Cartão 2', valor: 35 },
-    { nome: 'Cartão 3', valor: 28 },
-    { nome: 'Cartão 4', valor: 42 },
-    { nome: 'Cartão 5', valor: 33 },
-    { nome: 'Cartão 6', valor: 39 },
-    { nome: 'Cartão 7', valor: 27 },
-    { nome: 'Cartão 8', valor: 31 },
-    { nome: 'Cartão 9', valor: 36 },
-    { nome: 'Cartão 10', valor: 29 },
-    { nome: 'Cartão 11', valor: 41 },
-    { nome: 'Cartão 12', valor: 34 },
-    { nome: 'Cartão 13', valor: 40 },
-    { nome: 'Cartão 14', valor: 37 }
+    { value: 5750.2, number: 5282345678901289, exp: '09/25', flag: 'visa' },
+    { value: 7360.59, number: 1289528234567890, exp: '08/25', flag: 'mast' },
+    { value: 3233.9, number: 7890128952823456, exp: '10/25', flag: 'visa' },
+    { value: 0, number: 7890128952823456, exp: '10/25', flag: 'mast' },
   ];
 
   let indiceAtual = 0;
@@ -40,12 +32,9 @@
   <button on:click={anterior}>
     <img src="./src/assets/icons/arrow.svg" alt="Anterior">
   </button>
-  <section>
+  <section class="d-flex align-center justify-center">
     {#each getIndicesExibicao(indiceAtual) as card}
-      <div class="card">
-        <h2>{card.nome}</h2>
-        <p>Valor: {card.valor}</p>
-      </div>
+      <Card info={card}></Card>
     {/each}
   </section>
   <button on:click={proximo}>
@@ -60,9 +49,6 @@
     justify-content: space-between;
 
     section {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
       gap: var(--gap);;
     }
   }
