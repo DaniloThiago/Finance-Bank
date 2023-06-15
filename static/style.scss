@@ -6,6 +6,7 @@
   --s-semi-bold: 600;
   --s-bold: 700;
   --s-black: 900;
+  --c-black: #000000;
   --c-haiti: #141332;
   --c-ebony-clay: #1D1D41;
   --c-green-haze: #02B15A;
@@ -17,6 +18,9 @@
   --c-purple-blue: #6359e9;
   --c-white: #FFFFFF;
   --c-wild-blue-yonder: #8C89B4;
+  --c-jasmine-purple: #9C2CF3;
+  --c-ultramarina-blue: #3A6FF9;
+  --g-master: linear-gradient(180deg, var(--c-jasmine-purple) 0%, var(--c-ultramarina-blue) 100%);
 }
 
 .highcharts-legend-item text,
