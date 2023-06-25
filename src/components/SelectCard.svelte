@@ -28,7 +28,7 @@
   export let quantidadeExibida = 3;
 </script>
 
-<article>
+<article class="d-flex align-center justify-between">
   <button on:click={anterior}>
     <img src="./src/assets/icons/arrow.svg" alt="Anterior">
   </button>
@@ -46,10 +46,14 @@
 <style lang="scss">
   article {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-
+    width: fit-content;
     section {
-      gap: var(--gap);;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--gap);
     }
   }
 
