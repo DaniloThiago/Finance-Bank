@@ -15,7 +15,7 @@
 
 
 <style type="text/scss" lang="scss">
-    @import "./static/style.scss";
+    @import "../../static/style.scss";
 
     div{
         background-color: var(--c-ebony-clay);

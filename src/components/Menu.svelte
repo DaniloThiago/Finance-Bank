@@ -12,7 +12,7 @@
 </div>
 
 <style type="text/scss" lang="scss">
-  @import "./static/style.scss";
+  @import "../../static/style.scss";
   div {
     padding: 1.45rem 2.45rem;
     font-size: 1.6rem;

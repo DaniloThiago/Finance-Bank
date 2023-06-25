@@ -32,7 +32,7 @@
   <button on:click={anterior}>
     <img src="./src/assets/icons/arrow.svg" alt="Anterior">
   </button>
-  <section class="d-flex align-center justify-center">
+  <section>
     {#each getIndicesExibicao(indiceAtual) as card}
       <Card info={card}></Card>
     {/each}
@@ -49,7 +49,10 @@
     justify-content: space-between;
 
     section {
-      gap: var(--gap);;
+      gap: var(--gap);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
