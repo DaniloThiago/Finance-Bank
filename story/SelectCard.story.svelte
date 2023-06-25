@@ -10,3 +10,9 @@
   import SelectCard from '../src/components/SelectCard.svelte'
   export let Hst;
 </script>
+
+<style type="text/css" lang="scss">
+  .d-flex {
+    display: flex;
+  }
+</style>

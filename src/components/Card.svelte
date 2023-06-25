@@ -26,7 +26,7 @@
 </article>
 
 <style type="text/scss" lang="scss">
-  @import "./static/style.scss";
+  @import "../../static/style.scss";
   article {
     position: relative;
     width: 32.6rem;

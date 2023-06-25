@@ -24,7 +24,7 @@
 </article>
 
 <style type="text/scss" lang="scss">
-  @import "./static/style.scss";
+  @import "../../static/style.scss";
   article {
     padding: 3.3rem 2.7rem;
     background-color: var(--c-ebony-clay);
