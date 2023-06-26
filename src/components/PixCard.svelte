@@ -1,7 +1,7 @@
 <script lang="ts">
 </script>
   
-<div class="d-flex flex-col">
+<div class="d-flex flex-col pix-card">
     <span class="h4">Pague com o Pix</span>
     <span class="texto-corrido-medio">Pague suas contas com praticidade ou gere códigos para realizar cobranças</span>
     <div class="d-flex flex-col">
@@ -17,11 +17,13 @@
 <style type="text/scss" lang="scss">
     @import "../../static/style.scss";
 
-    div{
+    .pix-card{
         background-color: var(--c-ebony-clay);
         gap: 42px;
         border-radius: 20px;
         padding: 32px;
+        position: relative;
+        overflow: hidden;
 
         .h4{
             z-index: 1;
@@ -70,7 +72,8 @@
             }
         }
 
-        &:after {
+        &:before {
+
             content: "";
             display: block;
             position: absolute;
@@ -82,8 +85,8 @@
             width: 250px;
             height: 250px;
 
-            top: -2.2rem;
-            right: -3.2rem;
+            top: -3.5rem;
+            right: -8rem;
         }
     }
 
