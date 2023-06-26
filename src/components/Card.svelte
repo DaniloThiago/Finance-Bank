@@ -7,9 +7,12 @@
     number: number;
     flag: string;
   }
+
+  let img_alt = '';
+  $ : img_alt = info.flag == 'visa'? 'visa' : 'mastercard';
 </script>
 
-<article class="d-flex justify-evenly">
+<article class="d-flex justify-evenly" style="{img_alt == 'visa' ? 'background: var(--g-visa)' : ''}">
   <div class="left d-flex justify-between flex-col">
     <span class="title">Fatura do Cartão</span>
     <span class="value">R$ {info.value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
@@ -18,7 +21,7 @@
     </span>
   </div>
   <div class="right d-flex justify-between flex-col align-center">
-    <img class="logo" src="./src/assets/logo/mastercard.svg" alt="mastercard">
+    <img class="logo" src="./src/assets/logo/{img_alt}.svg" alt="{img_alt}">
     <span class="exp">
       {info.exp}
     </span>
