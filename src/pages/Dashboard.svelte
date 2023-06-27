@@ -4,6 +4,7 @@
   import Highcharts from "highcharts";
   import Total from "../components/Total.svelte";
   import PixCard from "../components/PixCard.svelte";
+    import MyCardCard from "../components/MyCardCard.svelte";
 
   onMount(() => {
     const splineData = [
@@ -96,7 +97,7 @@
     <div id="spline-chart-container" />
   </div>
   <div class="item content-2">
-    <SelectCard quantidadeExibida={1} />
+    <MyCardCard />
     <PixCard />
   </div>
 </div>
