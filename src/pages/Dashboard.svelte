@@ -82,17 +82,18 @@
   });
 </script>
 
+<div class="d-flex flex-col title-div">
+  <p class="title">Bem vindo,  Ali</p>
+  <p class="subtitle">Tenha uma visão geral dos seu saldo e dos seus gastos</p>
+</div>
+
 <div class="container">
   <div class="item content-1">
     <div class="d-flex gap-1">
-      <Total type="up" text="saldo da Conta" value={632.0} percent={1.29} classe="w-50" />
+      <Total type="up" text="Saldo da Conta" value={632.0} percent={1.29} classe="w-50" />
       <Total type="down" text="Total de Gastos" value={632.0} percent={1.29} classe="w-50" />
     </div>
     <div id="spline-chart-container" />
-    <div class="d-flex gap-1">
-      <Total type="up" text="saldo da Conta" value={632.0} percent={1.29} classe="w-50" />
-      <Total type="down" text="Total de Gastos" value={632.0} percent={1.29} classe="w-50" />
-    </div>
   </div>
   <div class="item content-2">
     <SelectCard quantidadeExibida={1} />
@@ -101,6 +102,25 @@
 </div>
 
 <style lang="scss">
+  @import "../../static/style.scss";
+
+  .title-div{
+    padding-bottom: 32px;
+    gap: 8px;
+
+    .title{
+      color: #FFF;
+      font-size: 2.4rem;
+      font-weight: var(--s-bold);
+      line-height: 120%;
+    }
+
+    .subtitle{
+      color: #A6A6A6;
+      font-size: 1.6rem;  
+      line-height: 160%;
+    }
+  }
   .gap-1 {
     gap: var(--gap);;
   }
@@ -118,6 +138,7 @@
       position: absolute;
       color: var(--c-white);
       font-size: 2rem;
+      font-weight: var(--s-bold);
       top: 3rem;
       left: 3rem;
     }

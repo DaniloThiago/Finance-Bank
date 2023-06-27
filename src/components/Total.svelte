@@ -4,8 +4,9 @@
   export let text: string = 'Total Income';
   export let value: number = 62100;
   export let percent: number = 0;
-  let icon = type == 'up' ? 'trending_up' : 'trending_down';
-  let color = type === 'up' ? 'green-haze' : 'lava-red';
+  let icon = type == 'up' ? 'wallet' : 'trending_down';
+  // let color = type === 'up' ? 'green-haze' : 'lava-red';
+  let color = 'lava-red';
 </script>
 
 <article class={classe}>
