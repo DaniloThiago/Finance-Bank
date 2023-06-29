@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Highcharts from "highcharts";
+    import SelectCard from "../components/SelectCard.svelte";
 
   onMount(() => {
     const splineData = [
@@ -85,11 +86,11 @@
         type: "pie",
       },
       title: {
-        text: "Gastos de Cartão de Crédito",
+        text: "Gastos por categoria",
       },
       subtitle: {
             useHTML: true,
-            text: '<img src="https://www.highcharts.com/samples/graphics/sun.png"> </img>',
+            text: '<img src="./src/assets/cart_figure.svg" width=90> </img>',
             floating: true,
             verticalAlign: 'middle',
             y: 0
@@ -132,12 +133,89 @@
   });
 </script>
 
-<div id="spline-chart-container" />
-<div id="pie-chart-container" />
+<div class="d-flex flex-col title-div">
+  <p class="title">Análise de Gastos</p>
+  <p class="subtitle">Fique atualizado sobre a evolução dos gastos no seu cartão!</p>
+</div>
 
-<style>
-  #spline-chart-container,
-  #pie-chart-container {
+<div class="container">
+  <div class="content-1">
+    <p>Cartão Selecionado</p>
+    <SelectCard quantidadeExibida={1} />
+  </div>
+  <div class="content-2">
+    <div class="cart" id="pie-chart-container" />
+  </div>
+</div>
+
+<div class="cart" id="spline-chart-container" />
+
+<style lang="scss">
+  .title-div{
+    padding-bottom: 32px;
+    gap: 8px;
+
+    .title{
+      color: #FFF;
+      font-size: 2.4rem;
+      font-weight: var(--s-bold);
+      line-height: 120%;
+    }
+
+    .subtitle{
+      color: #A6A6A6;
+      font-size: 1.6rem;  
+      line-height: 160%;
+    }
+  }
+
+  .container{
+    display: grid;
+    width: calc(100vw - (33rem + var(--gap) * 3));
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: var(--gap);
+    grid-template-areas: "content-1 content-2";
+    
+    #pie-chart-container {
+      width: 100%;
+      height: 400px;
+      display: inline-block;
+    }
+  } 
+
+  .content-1 {
+    grid-area: content-1;
+
+    p{
+      color: var(--c-wild-blue-yonder);
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 160%;
+    }
+  }
+
+  .cart {
+    grid-area: content-2;
+    padding: 2.8rem 2.4rem;
+    border-radius: 2rem;
+    background-color: var(--c-ebony-clay);
+    margin-top: 2.8rem;
+  }
+
+
+  /* OTHER STYLES */
+  .content-1,
+  .content-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.8rem;
+
+  }
+
+  #spline-chart-container{
     width: 100%;
     height: 400px;
     display: inline-block;
