@@ -1,0 +1,28 @@
+{
+  "card": [{
+      "id": 1,
+      "flag": "master",
+      "limite": 16000,
+      "number": 5282345678901289,
+      "valid": "09/25"
+    },
+    {
+      "id": 2,
+      "flag": "visa",
+      "limite": 8000,
+      "number": 1289528264567890,
+      "valid": "08/25"
+    }
+  ],
+  "transaction": [{
+    "id": 1,
+    "idCard": 1,
+    "data": "2023-06-30",
+    "value": 528
+  }, {
+    "id": 2,
+    "idCard": 1,
+    "data": "2023-06-30",
+    "value": 528
+  }]
+}
