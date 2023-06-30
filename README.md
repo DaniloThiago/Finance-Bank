@@ -23,4 +23,5 @@ npm run dev
 json-server --watch .\db\db.json
 ```
 
-
+## Referência
+[UI Fry](https://www.figma.com/community/file/1192792837534412333/Dashboard-Finance-Bank-Fintech)
