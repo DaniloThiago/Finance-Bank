@@ -95,6 +95,35 @@
       <Total type="down" text="Total de Gastos" value={632.0} percent={1.29} classe="w-50" />
     </div>
     <div id="spline-chart-container" />
+    <table>
+      <thead>
+        <tr>
+          <td colspan="4">
+            Últimas Transações
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Status</th>
+          <th>Valor</th>
+        </tr>
+        <tr>
+          <td><p>20</p><p>MAI</p><p>2022</p></td>
+          <td><p>PIX Leandro</p><p class="subtitle">PAGAMENTO PIX</p></td>
+          <td><div class="d-flex justify-center done"><img src="../src/assets/icons/done.svg" alt="done" width="12"></div></td>
+          <td>- R$30.09</td>
+        </tr>
+        <tr>
+          <td><p>20</p><p>MAI</p><p>2022</p></td>
+          <td><p>PIX Leandro</p><p class="subtitle">PAGAMENTO PIX</p></td>
+          <td><div class="d-flex justify-center clear"><img src="../src/assets/icons/clear.svg" alt="clear" width="12"></div></td>
+          <td>- R$30.09</td>
+        </tr>
+      </tbody>
+    </table>    
   </div>
   <div class="item content-2">
     <MyCardCard />
@@ -167,6 +196,67 @@
 
   .content-1 {
     grid-area: content-1;
+
+    table{
+      background-color: var(--c-ebony-clay);
+      padding: 1rem 2.4rem;
+      border-radius: 2rem;
+      border-spacing: 0 1.8rem;
+
+      thead{
+        tr{
+          td{
+            font-size: 2rem;
+            font-weight: var(--s-bold);
+            color: var(--c-white);
+            line-height: 120%;
+            padding-bottom: 22px;
+          }
+        }
+      }
+
+      tbody{
+        tr{
+          th{
+            color: #AEABD8;
+            font-size: 1.2rem;
+            font-weight: var(--s-regular);
+            text-align: left;
+          }
+
+          td{
+            color: var(--c-white);
+            font-size: 1.4rem;
+            font-weight: var(--s-regular);
+
+            p:nth-child(2){
+              font-size: 1rem;
+            }
+            .subtitle{
+              color: var(--c-wild-blue-yonder);
+            }
+            p:nth-child(3){
+              font-size: 0.7rem;
+            }
+            
+            div{
+              padding: 0.2rem;
+              border-radius: 1rem;
+              width: 16px;
+              height: 16px;
+            }
+
+            .done{
+              background: var(--c-green-haze);
+            }
+
+            .clear{
+              background: var(--c-lava-red);
+            }
+          }
+        }
+      }
+    }
   }
 
   .content-2 {
