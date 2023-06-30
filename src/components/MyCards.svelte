@@ -3,13 +3,15 @@
 
 </script>
   
-<div class="d-flex flex-col pix-card">
+<div class="d-flex flex-col pix-card ">
     <span class="h4">Meu Cartão</span>
     <div class="d-flex flex-col limite">
         <span class="texto-corrido-medio">Limite do Cartão</span>
         <span class="h4">$15,595.015</span>
     </div>
-    <SelectCard quantidadeExibida={1} />
+    <div class="d-flex justify-center">
+        <SelectCard quantidadeExibida={1} />
+    </div>
     <div class="d-flex">
         <button class="btn-primary w-100">Gerenciar Cartões</button>
         <button class="btn-secondary w-100"> Pagar </button>
