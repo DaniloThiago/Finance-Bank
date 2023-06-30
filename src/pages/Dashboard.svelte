@@ -4,7 +4,7 @@
   import Highcharts from "highcharts";
   import Total from "../components/Total.svelte";
   import PixCard from "../components/PixCard.svelte";
-    import MyCardCard from "../components/MyCardCard.svelte";
+    import MyCards from "../components/MyCards.svelte";
 
   onMount(() => {
     const splineData = [
@@ -126,7 +126,7 @@
     </table>    
   </div>
   <div class="item content-2">
-    <MyCardCard />
+    <MyCards />
     <PixCard />
   </div>
 </div>
