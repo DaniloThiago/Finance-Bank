@@ -20,7 +20,7 @@ npm run dev
 
 **Terminal 2:**
 ```ts
-json-server --watch .\db\db.json
+npx json-server --watch .\db\db.json
 ```
 
 ## Referência

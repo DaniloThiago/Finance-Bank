@@ -5,6 +5,7 @@
   import Total from "../components/Total.svelte";
   import PixCard from "../components/PixCard.svelte";
     import MyCards from "../components/MyCards.svelte";
+    import Transactions from "../components/Transactions.svelte";
 
   onMount(() => {
     const splineData = [
@@ -95,35 +96,7 @@
       <Total type="down" text="Total de Gastos" value={632.0} percent={1.29} classe="w-50" />
     </div>
     <div id="spline-chart-container" />
-    <table>
-      <thead>
-        <tr>
-          <td colspan="4">
-            Últimas Transações
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>Data</th>
-          <th>Descrição</th>
-          <th>Status</th>
-          <th>Valor</th>
-        </tr>
-        <tr>
-          <td><p>20</p><p>MAI</p><p>2022</p></td>
-          <td><p>PIX Leandro</p><p class="subtitle">PAGAMENTO PIX</p></td>
-          <td><div class="d-flex justify-center done"><img src="../src/assets/icons/done.svg" alt="done" width="12"></div></td>
-          <td>- R$30.09</td>
-        </tr>
-        <tr>
-          <td><p>20</p><p>MAI</p><p>2022</p></td>
-          <td><p>PIX Leandro</p><p class="subtitle">PAGAMENTO PIX</p></td>
-          <td><div class="d-flex justify-center clear"><img src="../src/assets/icons/clear.svg" alt="clear" width="12"></div></td>
-          <td>- R$30.09</td>
-        </tr>
-      </tbody>
-    </table>    
+    <Transactions qtd_maxima = {3} />
   </div>
   <div class="item content-2">
     <MyCards />
