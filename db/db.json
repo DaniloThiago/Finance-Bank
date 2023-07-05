@@ -18,11 +18,37 @@
     "id": 1,
     "idCard": 1,
     "data": "2023-06-30",
-    "value": 528
+    "description": "Compras de Mercado",
+    "tipoTransacao": 1,
+    "categoriaGasto": 2,
+    "value": 528,
+    "status": 1
   }, {
     "id": 2,
     "idCard": 1,
-    "data": "2023-06-30",
-    "value": 528
-  }]
+    "data": "2021-05-16",
+    "description": "Farmácia",
+    "tipoTransacao": 1,
+    "categoriaGasto": 1,
+    "value": 228,
+    "status": 1
+  }, {
+    "id": 3,
+    "idCard": 1,
+    "data": "2020-07-30",
+    "description": "Farmácia",
+    "tipoTransacao": 1,
+    "categoriaGasto": 1,
+    "value": 10.50,
+    "status": 0
+  }, {
+    "id": 4,
+    "idCard": 1,
+    "data": "2022-07-01",
+    "description": "Pagamento da Faculdade",
+    "tipoTransacao": 3,
+    "categoriaGasto": 3,
+    "value": 500,
+    "status": 0
+}]
 }
