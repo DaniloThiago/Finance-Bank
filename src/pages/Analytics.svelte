@@ -136,9 +136,7 @@
     <p>Cartão Selecionado</p>
     <SelectCard quantidadeExibida={1} />
   </div>
-  <div class="content-2">
-    <div class="cart" id="pie-chart-container"/>
-  </div>
+  <div class="content-2"> <div class="cart" id="pie-chart-container"/> </div>
 </div>
 
 <div class="cart" id="spline-chart-container" />
