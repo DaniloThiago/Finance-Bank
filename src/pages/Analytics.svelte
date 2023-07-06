@@ -88,13 +88,6 @@
       title: {
         text: "Gastos por categoria",
       },
-      // subtitle: {
-      //       useHTML: true,
-      //       text: '<img src="./src/assets/cart_figure.svg" width=90> </img>',
-      //       floating: true,
-      //       verticalAlign: 'middle',
-      //       y: 0
-      //   },
       tooltip: {
         formatter: function () {
           return `<b>${this.point.name}</b>: ${this.point.y.toFixed(1)}%`;
@@ -144,8 +137,7 @@
     <SelectCard quantidadeExibida={1} />
   </div>
   <div class="content-2">
-    <div class="cart" id="pie-chart-container" />
-    <img src="./src/assets/cart_figure.svg" alt="cart_figure" width=90 />
+    <div class="cart" id="pie-chart-container"/>
   </div>
 </div>
 
@@ -205,9 +197,13 @@
   }
 
   .content-2{
-    img{
-      position: relative;
-      top: -50%;
+    &:after{
+      content: "";
+      width: 9rem;
+      height: 9rem;
+      background-image: url('../assets/cart_figure.svg');
+      background-size: contain;
+      position: absolute;
     }
   }
 
