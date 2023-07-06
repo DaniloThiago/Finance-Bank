@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Highcharts from "highcharts";
-    import SelectCard from "../components/SelectCard.svelte";
+  import SelectCard from "../components/SelectCard.svelte";
 
   onMount(() => {
     const splineData = [
