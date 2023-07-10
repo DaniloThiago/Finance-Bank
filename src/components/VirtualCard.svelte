@@ -1,10 +1,11 @@
 <script lang="ts">
-    export let info: data;
-  
+
     interface data {
       value: number;
       number: number;
     }
+
+    export let info: data;
   
   </script>
   
@@ -55,6 +56,7 @@
         
         span.value {
           font-size: 2.8rem;
+          word-break: break-all;
         }
         span.number {
           opacity: .7;
