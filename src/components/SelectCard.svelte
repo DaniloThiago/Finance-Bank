@@ -59,7 +59,7 @@
     {/each}
   </section>
   <button on:click={proximo}>
-    <img src="./src/assets/icons/arrow.svg" alt="Próximo">
+    <img src="./src/assets/icons/arrow.svg" alt="próximo">
   </button>
 </article>
 
