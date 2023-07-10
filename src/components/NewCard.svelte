@@ -5,7 +5,7 @@
     let modal_toggle : boolean = false;
 
     const handleNewCard = () => {
-        console.log('criando cartão...');
+        console.log('Teste Criando Cartão...');
         modal_toggle = true;
     }
 
