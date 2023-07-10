@@ -39,9 +39,11 @@
         line-height: 160%;
       }
     }
+
     .gap-1 {
       gap: var(--gap);;
     }
+    
     #spline-chart-container {
       position: relative;
       width: 100%;
