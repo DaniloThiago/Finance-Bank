@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type card from "../interfaces/Card.interface";
-  import type transition from "../interfaces/Transition.interface";
+  import type Card from "../interfaces/Card.interface";
+  import { type TransactionItem } from "../interfaces/TransactionItem.interface";
 
-  export let card: card;
+  export let card: Card;
 
-  let transactions: transition[] = [];
+  let transactions: TransactionItem[] = [];
   let isLoading = true;
 
   const cardId = card.id; // ID do cartão específico
