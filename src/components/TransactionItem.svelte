@@ -1,19 +1,9 @@
 <script lang="ts">
   import { format } from "date-fns";
   import ptBR from "date-fns/locale/pt-BR";
+  import type transactionItem from "../interfaces/TransactionItem.interface";
 
-  type TransactionItem = {
-    id: number;
-    idCard: number;
-    date: string;
-    description: string;
-    tipoTransacao: number;
-    categoriaGasto: number;
-    value: number;
-    status: number;
-  };
-
-  export let props: TransactionItem;
+  export let props: transactionItem;
 
   const tiposTransacao = [
     "RECEBIMENTO PIX",

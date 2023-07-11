@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Card from './Card.svelte'
   import VirtualCard from './VirtualCard.svelte'
+  import type card from '../interfaces/Card.interface';
 
   // let cards = [
   //   { value: 5750.2, number: 5282345678901289, exp: '09/25', flag: 'visa' },
@@ -18,7 +19,7 @@
     {value: 30,  number: 53453454365676828},
   ];
 
-  let cards;
+  let cards: card[];
   let isLoading = true;
 
   onMount(async () => {

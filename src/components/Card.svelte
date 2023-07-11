@@ -1,26 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import type card from "../interfaces/Card.interface";
+  import type transition from "../interfaces/Transition.interface";
 
   export let card: card;
-
-  interface card {
-    id: number;
-    valid: string;
-    number: number;
-    flag: string;
-  }
-
-  interface transition {
-    id: number;
-    idCard: number;
-    date: string;
-    description: string;
-    tipoTransacao: number;
-    categoriaGasto: number;
-    value: number;
-    status: number;
-  }
-  
 
   let transactions: transition[] = [];
   let isLoading = true;
