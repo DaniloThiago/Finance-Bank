@@ -267,6 +267,12 @@
   .content-2 {
     display: flex;
     flex-direction: column;
-    gap: var(--gap);;
+    gap: var(--gap);
+  }
+  
+  @media screen and (max-width:1745px) {
+    .content-2 {
+      padding-right: var(--gap);
+    }
   }
 </style>
