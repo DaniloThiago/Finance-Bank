@@ -42,7 +42,6 @@
         return accumulator + transaction.value;
       }, 0);
       
-      console.log(transactions);
     } catch (error) {
       console.error(error);
       isLoading = false;
