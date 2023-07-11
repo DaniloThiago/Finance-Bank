@@ -1,19 +1,19 @@
 <script>
-  import { menuItems } from '../data/menu';
-  import Menu from '../components/Menu.svelte';
+  import { menuItems } from "../data/menu";
+  import Menu from "../components/Menu.svelte";
 
-  let activeMenu = parseInt(localStorage.getItem('activeMenu')) || 0; 
+  let activeMenu = parseInt(localStorage.getItem("activeMenu")) || 0;
 
   function setActiveMenu(index) {
     activeMenu = index;
-    localStorage.setItem('activeMenu', index)
+    localStorage.setItem("activeMenu", index);
   }
 </script>
 
 <!-- Navbar -->
 <nav class="d-flex flex-col justify-start">
   <article class="d-flex align-center">
-    <img src="./src/assets/logo.svg" alt="logo">
+    <img src="./src/assets/logo.svg" alt="logo" />
     <abbr>
       FB
       <sup>TM</sup>
@@ -34,10 +34,10 @@
 <!-- Current Component -->
 <section>
   {#each menuItems as item, index}
-  {#if activeMenu === index}
-    <svelte:component this={item.component} />
-  {/if}
-{/each}
+    {#if activeMenu === index}
+      <svelte:component this={item.component} />
+    {/if}
+  {/each}
 </section>
 
 <style type="text/scss" lang="scss">

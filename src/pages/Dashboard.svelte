@@ -4,8 +4,8 @@
   import Highcharts from "highcharts";
   import Total from "../components/Total.svelte";
   import PixCard from "../components/PixCard.svelte";
-    import MyCards from "../components/MyCards.svelte";
-    import Transactions from "../components/Transactions.svelte";
+  import MyCards from "../components/MyCards.svelte";
+  import Transactions from "../components/Transactions.svelte";
 
   onMount(() => {
     const splineData = [
@@ -85,18 +85,30 @@
 </script>
 
 <div class="d-flex flex-col title-div">
-  <p class="title">Bem vindo,  Ali</p>
+  <p class="title">Bem vindo, Ali</p>
   <p class="subtitle">Tenha uma visão geral dos seu saldo e dos seus gastos</p>
 </div>
 
 <div class="container">
   <div class="item content-1">
     <div class="d-flex gap-1">
-      <Total type="up" text="Saldo da Conta" value={632.0} percent={1.29} classe="w-50" />
-      <Total type="down" text="Total de Gastos" value={632.0} percent={1.29} classe="w-50" />
+      <Total
+        type="up"
+        text="Saldo da Conta"
+        value={632.0}
+        percent={1.29}
+        classe="w-50"
+      />
+      <Total
+        type="down"
+        text="Total de Gastos"
+        value={632.0}
+        percent={1.29}
+        classe="w-50"
+      />
     </div>
     <div id="spline-chart-container" />
-    <Transactions qtd_maxima = {3} />
+    <Transactions qtd_maxima={3} />
   </div>
   <div class="item content-2">
     <MyCards />
@@ -107,25 +119,25 @@
 <style lang="scss">
   @import "../../static/style.scss";
 
-  .title-div{
+  .title-div {
     padding-bottom: 32px;
     gap: 8px;
 
-    .title{
-      color: #FFF;
+    .title {
+      color: #fff;
       font-size: 2.4rem;
       font-weight: var(--s-bold);
       line-height: 120%;
     }
 
-    .subtitle{
-      color: #A6A6A6;
-      font-size: 1.6rem;  
+    .subtitle {
+      color: #a6a6a6;
+      font-size: 1.6rem;
       line-height: 160%;
     }
   }
   .gap-1 {
-    gap: var(--gap);;
+    gap: var(--gap);
   }
   #spline-chart-container {
     position: relative;
@@ -137,7 +149,7 @@
     border-radius: 2rem;
 
     &:before {
-      content: 'Análise de Dados';
+      content: "Análise de Dados";
       position: absolute;
       color: var(--c-white);
       font-size: 2rem;
@@ -163,7 +175,7 @@
         article {
           width: 50vw !important;
         }
-      } 
+      }
     }
   }
 
@@ -179,6 +191,6 @@
   .content-2 {
     display: flex;
     flex-direction: column;
-    gap: var(--gap);;
+    gap: var(--gap);
   }
 </style>

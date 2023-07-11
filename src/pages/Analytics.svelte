@@ -94,14 +94,13 @@
         },
       },
       plotOptions: {
-
         series: {
           borderWidth: 50,
           colorByPoint: false,
           size: "100%",
           innerSize: "60%",
           gap: 2,
-          gapUnit: 'value',
+          gapUnit: "value",
           dataLabels: {
             enabled: true,
             crop: true,
@@ -116,7 +115,7 @@
       },
       series: [
         {
-          type: 'pie',
+          type: "pie",
           name: "Categorias",
           data: pieData,
           showInLegend: true,
@@ -128,7 +127,9 @@
 
 <div class="d-flex flex-col title-div">
   <p class="title">Análise de Gastos</p>
-  <p class="subtitle">Fique atualizado sobre a evolução dos gastos no seu cartão!</p>
+  <p class="subtitle">
+    Fique atualizado sobre a evolução dos gastos no seu cartão!
+  </p>
 </div>
 
 <div class="container">
@@ -136,49 +137,49 @@
     <p>Cartão Selecionado</p>
     <SelectCard quantidadeExibida={1} />
   </div>
-  <div class="content-2"> <div class="cart" id="pie-chart-container"/> </div>
+  <div class="content-2"><div class="cart" id="pie-chart-container" /></div>
 </div>
 
 <div class="cart" id="spline-chart-container" />
 
 <style lang="scss">
-  .title-div{
+  .title-div {
     padding-bottom: 32px;
     gap: 8px;
 
-    .title{
-      color: #FFF;
+    .title {
+      color: #fff;
       font-size: 2.4rem;
       font-weight: var(--s-bold);
       line-height: 120%;
     }
 
-    .subtitle{
-      color: #A6A6A6;
-      font-size: 1.6rem;  
+    .subtitle {
+      color: #a6a6a6;
+      font-size: 1.6rem;
       line-height: 160%;
     }
   }
 
-  .container{
+  .container {
     display: grid;
     width: calc(100vw - (33rem + var(--gap) * 3));
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: var(--gap);
     grid-template-areas: "content-1 content-2";
-    
+
     #pie-chart-container {
       width: 100%;
       height: 400px;
       display: inline-block;
     }
-  } 
+  }
 
   .content-1 {
     grid-area: content-1;
 
-    p{
+    p {
       color: var(--c-wild-blue-yonder);
       font-size: 1.6rem;
       font-weight: 400;
@@ -194,12 +195,12 @@
     margin-top: 2.8rem;
   }
 
-  .content-2{
-    &:after{
+  .content-2 {
+    &:after {
       content: "";
       width: 9rem;
       height: 9rem;
-      background-image: url('../assets/cart_figure.svg');
+      background-image: url("../assets/cart_figure.svg");
       background-size: contain;
       position: absolute;
     }
@@ -213,10 +214,9 @@
     align-items: center;
     flex-direction: column;
     gap: 0.8rem;
-
   }
 
-  #spline-chart-container{
+  #spline-chart-container {
     width: 100%;
     height: 400px;
     display: inline-block;

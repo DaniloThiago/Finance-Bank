@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let icon: string = '';
-  export let title: string = '';
+  export let icon: string = "";
+  export let title: string = "";
   export let active: boolean = false;
 </script>
 
@@ -23,12 +23,12 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    
+
     span {
       margin-left: 1.4rem;
       font-weight: var(--s-regular);
     }
-    
+
     &:hover {
       background-color: var(--c-palatinate-blue);
     }

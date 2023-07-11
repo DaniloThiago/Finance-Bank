@@ -1,12 +1,12 @@
 <script lang="ts">
-  export let classe: string = '';
-  export let type: string = 'up';
-  export let text: string = 'Total Income';
+  export let classe: string = "";
+  export let type: string = "up";
+  export let text: string = "Total Income";
   export let value: number = 62100;
   export let percent: number = 0;
-  let icon = type == 'up' ? 'wallet' : 'trending_down';
+  let icon = type == "up" ? "wallet" : "trending_down";
   // let color = type === 'up' ? 'green-haze' : 'lava-red';
-  let color = 'lava-red';
+  let color = "lava-red";
 </script>
 
 <article class={classe}>
@@ -45,7 +45,7 @@
         img {
           width: 3rem;
         }
-        
+
         &.lava-red {
           background-color: var(--c-purple-blue);
         }
