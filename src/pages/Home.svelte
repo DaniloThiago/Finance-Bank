@@ -51,6 +51,7 @@
     background-color: var(--c-ebony-clay);
     gap: var(--gap);
     overflow: auto;
+    z-index: 1;
 
     article {
       color: var(--c-white);
