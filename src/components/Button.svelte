@@ -1,7 +1,5 @@
 <div>
-  <span>
-    Manage Cards
-  </span>
+  <span> Manage Cards </span>
 </div>
 
 <style type="text/scss" lang="scss">
@@ -14,7 +12,7 @@
     color: var(--c-white);
     border-radius: 1rem;
     cursor: pointer;
-    
+
     span {
       font-weight: var(--s-black);
     }

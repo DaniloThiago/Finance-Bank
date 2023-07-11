@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import Card from './Card.svelte'
-  import VirtualCard from './VirtualCard.svelte'
-  import type card from '../interfaces/Card.interface';
+  import { onMount } from "svelte";
+  import Card from "./Card.svelte";
+  import VirtualCard from "./VirtualCard.svelte";
+  import type card from "../interfaces/Card.interface";
 
   // let cards = [
   //   { value: 5750.2, number: 5282345678901289, exp: '09/25', flag: 'visa' },
@@ -12,11 +12,11 @@
   // ];
 
   let virtuais = [
-    {value: 0,  number: 34534468789873245},
-    {value: 1000,  number: 52823456712312313},
-    {value: 30000,  number: 78901289598645649},
-    {value: 10,  number: 23131311312313231},
-    {value: 30,  number: 53453454365676828},
+    { value: 0, number: 34534468789873245 },
+    { value: 1000, number: 52823456712312313 },
+    { value: 30000, number: 78901289598645649 },
+    { value: 10, number: 23131311312313231 },
+    { value: 30, number: 53453454365676828 },
   ];
 
   let cards: card[];
@@ -24,7 +24,7 @@
 
   onMount(async () => {
     try {
-      const response = await fetch('http://localhost:3000/card');
+      const response = await fetch("http://localhost:3000/card");
       const jsonData = await response.json();
       cards = jsonData;
       isLoading = false;
@@ -35,12 +35,13 @@
   });
 
   let indiceAtual = 0;
-  
+
   function anterior() {
     indiceAtual = (indiceAtual - 1 + cards.length) % cards.length;
-    if (is_virtual) indiceAtual = (indiceAtual - 1 + virtuais.length) % virtuais.length;
+    if (is_virtual)
+      indiceAtual = (indiceAtual - 1 + virtuais.length) % virtuais.length;
   }
-  
+
   function proximo() {
     indiceAtual = (indiceAtual + 1) % cards.length;
     if (is_virtual) indiceAtual = (indiceAtual + 1) % virtuais.length;
@@ -49,22 +50,21 @@
   function getIndicesExibicao(idx) {
     const indices = [];
     for (let i = 0; i < quantidadeExibida; i++) {
-      if (is_virtual){
+      if (is_virtual) {
         indices.push(virtuais[(idx + i) % virtuais.length]);
-      }else{
+      } else {
         indices.push(cards[(idx + i) % cards.length]);
       }
     }
     return indices;
   }
   export let quantidadeExibida = 3;
-  export let is_virtual : boolean = false;
-
+  export let is_virtual: boolean = false;
 </script>
 
 <article class="d-flex align-center justify-between">
   <button on:click={anterior}>
-    <img src="./src/assets/icons/arrow.svg" alt="Anterior">
+    <img src="./src/assets/icons/arrow.svg" alt="Anterior" />
   </button>
   <section>
     {#if isLoading}
@@ -72,18 +72,17 @@
     {:else}
       {#each getIndicesExibicao(indiceAtual) as card}
         {#if is_virtual}
-          <VirtualCard info={card}></VirtualCard>
+          <VirtualCard info={card} />
         {:else}
-          <Card card={card}></Card>
+          <Card {card} />
         {/if}
       {/each}
     {/if}
   </section>
   <button on:click={proximo}>
-    <img src="./src/assets/icons/arrow.svg" alt="próximo">
+    <img src="./src/assets/icons/arrow.svg" alt="próximo" />
   </button>
 </article>
-
 
 <style lang="scss">
   article {
