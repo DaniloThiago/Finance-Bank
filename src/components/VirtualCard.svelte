@@ -1,10 +1,7 @@
 <script lang="ts">
-  interface data {
-    value: number;
-    number: number;
-  }
+  import type CardInterface from "../interfaces/Card.interface";
 
-  export let info: data;
+  export let card: any;
 </script>
 
 <article class="d-flex justify-evenly align-center" style="">
@@ -20,13 +17,13 @@
   <div class="right d-flex justify-between flex-col">
     <span class="title">Fatura do Cartão</span>
     <span class="value"
-      >R$ {info.value.toLocaleString("pt-BR", {
+      >R$ {card.value.toLocaleString("pt-BR", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}</span
     >
     <span class="number">
-      {info.number
+      {card.number
         .toString()
         .match(/.{1,4}/g)
         .join(" ")}

@@ -1,8 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import TransactionItem from "./TransactionItem.svelte";
+  import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
-  let transactions = [];
+  let transactions: TransactionItemInterface[] = [];
   export let qtd_maxima: number = -1;
 
   async function fetchTransactions() {

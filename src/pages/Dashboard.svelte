@@ -1,49 +1,85 @@
-<script>
-  import SelectCard from "../components/SelectCard.svelte";
+<script lang="ts">
   import { onMount } from "svelte";
   import Highcharts from "highcharts";
   import Total from "../components/Total.svelte";
   import PixCard from "../components/PixCard.svelte";
   import MyCards from "../components/MyCards.svelte";
   import Transactions from "../components/Transactions.svelte";
+  import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
-  onMount(() => {
-    const splineData = [
-      {
-        card: "MasterCard",
-        hist: [
-          { month: "Janeiro", value: 1000 },
-          { month: "Fevereiro", value: 1500 },
-          { month: "Março", value: 800 },
-          { month: "Abril", value: 1200 },
-          { month: "Maio", value: 900 },
-          { month: "Junho", value: 1600 },
-          { month: "Julho", value: 1100 },
-          { month: "Agosto", value: 1300 },
-          { month: "Setembro", value: 750 },
-          { month: "Outubro", value: 1400 },
-          { month: "Novembro", value: 950 },
-          { month: "Dezembro", value: 1800 },
-        ],
-      },
-      {
-        card: "Visa",
-        hist: [
-          { month: "Janeiro", value: 100 },
-          { month: "Fevereiro", value: 150 },
-          { month: "Março", value: 80 },
-          { month: "Abril", value: 120 },
-          { month: "Maio", value: 90 },
-          { month: "Junho", value: 160 },
-          { month: "Julho", value: 110 },
-          { month: "Agosto", value: 130 },
-          { month: "Setembro", value: 75 },
-          { month: "Outubro", value: 140 },
-          { month: "Novembro", value: 95 },
-          { month: "Dezembro", value: 180 },
-        ],
-      },
-    ];
+  onMount(async () => {
+    let splineData;
+    let dados: TransactionItemInterface[] = [];
+    const response = await fetch("http://localhost:3000/transaction");
+    const jsonData = await response.json();
+    dados = jsonData;
+
+    const meses = {
+      0: "Janeiro",
+      1: "Fevereiro",
+      2: "Março",
+      3: "Abril",
+      4: "Maio",
+      5: "Junho",
+      6: "Julho",
+      7: "Agosto",
+      8: "Setembro",
+      9: "Outubro",
+      10: "Novembro",
+      11: "Dezembro"
+    };
+
+    const obterSomatorioPorMes = (dados, ano) => {
+      const resultado = {};
+
+      dados.forEach(obj => {
+        const data = new Date(obj.date);
+        const objAno = data.getFullYear();
+        const mes = data.getMonth();
+        const valor = obj.value;
+
+        if (objAno === ano) {
+          const cardId = obj.idCard;
+
+          if (!resultado[cardId]) {
+            resultado[cardId] = {
+              card: obj.idCard,
+              hist: Array.from({ length: 12 }, (_, i) => ({ month: meses[i], value: 0 }))
+            };
+          }
+
+          resultado[cardId].hist[mes].month = meses[mes];
+          resultado[cardId].hist[mes].value += valor;
+        }
+      });
+
+      return Object.values(resultado);
+    };
+
+    const anoDesejado = 2023;
+    const resultado = obterSomatorioPorMes(dados, anoDesejado);
+
+    splineData = await Promise.all(resultado.map(async (item: any) => {
+      const response: any = await fazerRequisicaoDoCartao(item.card); // Substitua pela sua lógica de requisição
+      const flagValid = response.flag.charAt(0).toUpperCase() + response.flag.slice(1) + ' ' + response.valid; // Concatenação dos campos flag e valid
+
+      return {
+        ...item,
+        card: flagValid
+      };
+    }));
+
+    function fazerRequisicaoDoCartao(idCard) {
+      return fetch(`http://localhost:3000/card/${idCard}`)
+      .then(response => response.json())
+      .then(data => {
+        const { flag, valid } = data;
+        return { idCard, flag, valid };
+      })
+      .catch(error => {
+        console.log("Erro na requisição:", error);
+      });
+    };
 
     const splineCategories = splineData[0].hist.map((item) => item.month);
     const transformedData = splineData.map((item) => ({

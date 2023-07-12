@@ -1,4 +1,4 @@
-export default interface transactionItem {
+export interface TransactionItemInterface {
   id: number;
   idCard: number;
   date: string;
@@ -7,4 +7,4 @@ export default interface transactionItem {
   categoriaGasto: number;
   value: number;
   status: number;
-};
+}
