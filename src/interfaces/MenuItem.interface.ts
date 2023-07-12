@@ -1,6 +1,6 @@
 import type { SvelteComponent } from 'svelte';
 
-export default interface MenuItem {
+export default interface MenuItemInterface {
   description: string;
   icon: string;
   active: boolean;

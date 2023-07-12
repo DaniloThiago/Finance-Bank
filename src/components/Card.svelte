@@ -1,35 +1,6 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import type Card from "../interfaces/Card.interface";
-  import { type TransactionItem } from "../interfaces/TransactionItem.interface";
-
-  export let card: Card;
-
-  let transactions: TransactionItem[] = [];
-  let isLoading = true;
-
-  const cardId = card.id; // ID do cartão específico
-  const currentDate = new Date();
-  const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-  let totalValue = 0;
-  
-  onMount(async () => {
-    try {
-      const url = `http://localhost:3000/transaction/?idCard=${cardId}&date_like=2020-${currentMonth}-`;
-      const response = await fetch(url);
-      const jsonData = await response.json();
-      transactions = jsonData;
-      isLoading = false;
-
-      totalValue = transactions.reduce((accumulator, transaction) => {
-        return accumulator + transaction.value;
-      }, 0);
-      
-    } catch (error) {
-      console.error(error);
-      isLoading = false;
-    }
-  });
+  import type CardInterface from "../interfaces/Card.interface";
+  export let card: any;
 
   let img_alt = '';
   $ : img_alt = card.flag == 'visa'? 'visa' : 'mastercard';
@@ -38,7 +9,7 @@
 <article class="d-flex justify-evenly" style="{img_alt == 'visa' ? 'background: var(--g-visa)' : ''}">
   <div class="left d-flex justify-between flex-col">
     <span class="title">Fatura do Cartão</span>
-    <span class="value">R$ {totalValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+    <span class="value">R$ {card.value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
     <span class="number">
       {card.number.toString().match(/.{1,4}/g).join(' ')}
     </span>

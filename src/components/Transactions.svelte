@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import TransactionItem from "./TransactionItem.svelte";
-  import { type TransactionItem as TransactionItemInterface } from "../interfaces/TransactionItem.interface";
+  import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
   let transactions: TransactionItemInterface[] = [];
   export let qtd_maxima: number = -1;

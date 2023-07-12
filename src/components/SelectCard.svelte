@@ -2,14 +2,6 @@
   import { onMount } from "svelte";
   import Card from "./Card.svelte";
   import VirtualCard from "./VirtualCard.svelte";
-  import type card from "../interfaces/Card.interface";
-
-  // let cards = [
-  //   { value: 5750.2, number: 5282345678901289, exp: '09/25', flag: 'visa' },
-  //   { value: 7360.59, number: 1289528234567890, exp: '08/25', flag: 'mast' },
-  //   { value: 3233.9, number: 7890128952823456, exp: '10/25', flag: 'visa' },
-  //   { value: 0, number: 7890128952823456, exp: '10/25', flag: 'mast' },
-  // ];
 
   let virtuais = [
     { value: 0, number: 34534468789873245 },
@@ -19,14 +11,30 @@
     { value: 30, number: 53453454365676828 },
   ];
 
-  let cards: card[];
+  let cards: any[];
   let isLoading = true;
 
   onMount(async () => {
     try {
-      const response = await fetch("http://localhost:3000/card");
+      const url = "http://localhost:3000/card";
+      const response = await fetch(url);
       const jsonData = await response.json();
       cards = jsonData;
+
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // Formata o mês com dois dígitos
+
+      for (const card of cards) {
+        const idCard = card.id;
+        const transactionUrl = `http://localhost:3000/transaction/?idCard=${idCard}&date_like=${currentYear}-${currentMonth}`;
+        const transactionResponse = await fetch(transactionUrl);
+        const transactionData = await transactionResponse.json();
+        const totalValue = transactionData.reduce((total, transaction) => total + transaction.value, 0);
+        console.log(transactionData)
+        card.value = totalValue;
+      }
+
       isLoading = false;
     } catch (error) {
       console.error(error);
@@ -37,23 +45,26 @@
   let indiceAtual = 0;
 
   function anterior() {
+    if (is_virtual) {
+      return indiceAtual = (indiceAtual - 1 + virtuais.length) % virtuais.length;
+    }
     indiceAtual = (indiceAtual - 1 + cards.length) % cards.length;
-    if (is_virtual)
-      indiceAtual = (indiceAtual - 1 + virtuais.length) % virtuais.length;
   }
 
   function proximo() {
+    if (is_virtual) {
+      return  indiceAtual = (indiceAtual + 1) % virtuais.length;
+    }
     indiceAtual = (indiceAtual + 1) % cards.length;
-    if (is_virtual) indiceAtual = (indiceAtual + 1) % virtuais.length;
   }
 
   function getIndicesExibicao(idx) {
     const indices = [];
     for (let i = 0; i < quantidadeExibida; i++) {
       if (is_virtual) {
-        indices.push(virtuais[(idx + i) % virtuais.length]);
+        if(i < virtuais.length) indices.push(virtuais[(idx + i) % virtuais.length]);
       } else {
-        indices.push(cards[(idx + i) % cards.length]);
+        if(i < cards.length) indices.push(cards[(idx + i) % cards.length]);
       }
     }
     return indices;
@@ -72,7 +83,7 @@
     {:else}
       {#each getIndicesExibicao(indiceAtual) as card}
         {#if is_virtual}
-          <VirtualCard info={card} />
+          <VirtualCard card={card} />
         {:else}
           <Card {card} />
         {/if}

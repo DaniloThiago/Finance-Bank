@@ -1,4 +1,4 @@
-export interface TransactionItem {
+export interface TransactionItemInterface {
   id: number;
   idCard: number;
   date: string;

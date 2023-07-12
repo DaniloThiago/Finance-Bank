@@ -5,12 +5,11 @@
   import PixCard from "../components/PixCard.svelte";
   import MyCards from "../components/MyCards.svelte";
   import Transactions from "../components/Transactions.svelte";
-  import { type TransactionItem } from "../interfaces/TransactionItem.interface";
-  import type Card from "../interfaces/Card.interface";
+  import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
   onMount(async () => {
     let splineData;
-    let dados: TransactionItem[] = [];
+    let dados: TransactionItemInterface[] = [];
     const response = await fetch("http://localhost:3000/transaction");
     const jsonData = await response.json();
     dados = jsonData;
@@ -59,7 +58,6 @@
 
     const anoDesejado = 2023;
     const resultado = obterSomatorioPorMes(dados, anoDesejado);
-    console.log(resultado);
 
     splineData = await Promise.all(resultado.map(async (item: any) => {
       const response: any = await fazerRequisicaoDoCartao(item.card); // Substitua pela sua lógica de requisição

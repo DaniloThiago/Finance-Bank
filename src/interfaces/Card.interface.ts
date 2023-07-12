@@ -1,4 +1,4 @@
-export default interface Card {
+export default interface CardInterface {
   id: number;
   valid: string;
   number: number;
