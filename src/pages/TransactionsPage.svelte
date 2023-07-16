@@ -1,7 +1,18 @@
-<script>
+<script lang="ts">
   import PixCard from "../components/PixCard.svelte";
   import MyCards from "../components/MyCards.svelte";
   import Transactions from "../components/Transactions.svelte";
+  import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
+  import { onMount } from "svelte";
+
+  let transactions: TransactionItemInterface[] = [];
+  onMount(async () => {
+    let splineData;
+    const response = await fetch("http://localhost:3000/transaction");
+    const jsonData = await response.json();
+    jsonData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    transactions = jsonData;
+  })
 </script>
 
 <div class="d-flex flex-col title-div">
@@ -13,7 +24,7 @@
 
 <div class="container">
   <div class="item content-1">
-    <Transactions />
+    <Transactions {transactions} />
   </div>
   <div class="item content-2">
     <MyCards />

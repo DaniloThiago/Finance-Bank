@@ -95,8 +95,16 @@
   justify-content: space-evenly;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .w-100 {
   width: 100%;
+}
+
+.mw-100 {
+  max-width: 100%;
 }
 
 .w-50 {

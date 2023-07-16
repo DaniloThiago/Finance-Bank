@@ -27,11 +27,13 @@
   article {
     position: relative;
     width: 32.6rem;
+    min-width: 34.6rem;
     height: 18.4rem;
     overflow: hidden;
     background: var(--c-jasmine-purple);
     background: var(--g-master);
     border-radius: 2rem;
+    margin-bottom: 2.8rem;
 
     .right, .left {
       font-size: 1.4rem;

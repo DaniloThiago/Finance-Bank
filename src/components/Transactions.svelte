@@ -3,21 +3,7 @@
   import TransactionItem from "./TransactionItem.svelte";
   import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
-  let transactions: TransactionItemInterface[] = [];
-  export let qtd_maxima: number = -1;
-
-  async function fetchTransactions() {
-    try {
-      const response = await fetch("http://localhost:3000/transaction");
-      transactions = await response.json();
-
-      qtd_maxima = qtd_maxima == -1 ? transactions.length : qtd_maxima;
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-
-  onMount(fetchTransactions);
+  export let transactions: TransactionItemInterface[] = [];
 </script>
 
 <table>
@@ -34,9 +20,7 @@
       <th>Valor</th>
     </tr>
     {#each transactions as transaction, index}
-      {#if index < qtd_maxima}
         <TransactionItem props={transaction} />
-      {/if}
     {/each}
   </tbody>
 </table>

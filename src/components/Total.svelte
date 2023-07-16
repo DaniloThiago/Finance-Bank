@@ -31,7 +31,7 @@
     background-color: var(--c-ebony-clay);
     border-radius: 2rem;
     height: 6rem;
-    width: 26.7rem;
+    min-width: 26.7rem;
     box-sizing: initial;
 
     div {

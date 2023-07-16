@@ -7,12 +7,14 @@
   import Transactions from "../components/Transactions.svelte";
   import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
+  let transactions: TransactionItemInterface[] = [];
+  
   onMount(async () => {
     let splineData;
-    let dados: TransactionItemInterface[] = [];
     const response = await fetch("http://localhost:3000/transaction");
     const jsonData = await response.json();
-    dados = jsonData;
+    jsonData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    transactions = jsonData;
 
     const meses = {
       0: "Janeiro",
@@ -29,10 +31,10 @@
       11: "Dezembro"
     };
 
-    const obterSomatorioPorMes = (dados, ano) => {
+    const obterSomatorioPorMes = (transactions, ano) => {
       const resultado = {};
 
-      dados.forEach(obj => {
+      transactions.forEach(obj => {
         const data = new Date(obj.date);
         const objAno = data.getFullYear();
         const mes = data.getMonth();
@@ -57,7 +59,7 @@
     };
 
     const anoDesejado = 2023;
-    const resultado = obterSomatorioPorMes(dados, anoDesejado);
+    const resultado = obterSomatorioPorMes(transactions, anoDesejado);
 
     splineData = await Promise.all(resultado.map(async (item: any) => {
       const response: any = await fazerRequisicaoDoCartao(item.card); // Substitua pela sua lógica de requisição
@@ -144,7 +146,7 @@
       />
     </div>
     <div id="spline-chart-container" />
-    <Transactions qtd_maxima={3} />
+    <Transactions transactions={transactions.slice(0,3)} />
   </div>
   <div class="item content-2">
     <MyCards />
@@ -228,5 +230,11 @@
     display: flex;
     flex-direction: column;
     gap: var(--gap);
+  }
+  
+  @media screen and (max-width:1745px) {
+    .content-2 {
+      padding-right: var(--gap);
+    }
   }
 </style>
