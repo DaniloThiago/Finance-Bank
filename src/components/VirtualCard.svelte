@@ -35,12 +35,14 @@
   @import "../../static/style.scss";
   article {
     position: relative;
-    width: 32.6rem;
+    width: 34.6rem;
+    min-width: 34.6rem;
     height: 16rem;
     overflow: hidden;
     background: var(--g-virtual);
     border-radius: 2rem;
     padding: 2.8rem;
+    margin-bottom: 2.8rem;
     gap: 32px;
 
     .vertical-line {

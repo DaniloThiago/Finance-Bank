@@ -1,26 +1,68 @@
-<script>
-  import { onMount } from "svelte";
-  import Highcharts from "highcharts";
+<script lang="ts">
+  import { afterUpdate, onMount } from "svelte";
+  import Highcharts, { numberFormat } from "highcharts";
   import SelectCard from "../components/SelectCard.svelte";
+  import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
-  onMount(() => {
-    const splineData = [
-      { month: "Janeiro", value: 1000 },
-      { month: "Fevereiro", value: 1500 },
-      { month: "Março", value: 800 },
-      { month: "Abril", value: 1200 },
-      { month: "Maio", value: 900 },
-      { month: "Junho", value: 1600 },
-      { month: "Julho", value: 1100 },
-      { month: "Agosto", value: 1300 },
-      { month: "Setembro", value: 750 },
-      { month: "Outubro", value: 1400 },
-      { month: "Novembro", value: 950 },
-      { month: "Dezembro", value: 1800 },
-    ];
+  let transactions: TransactionItemInterface[] = [];
+  let idCard: number = -1;
 
-    const splineCategories = splineData.map((item) => item.month);
-    const splineValues = splineData.map((item) => item.value);
+  async function handleCustomEvent(event) {
+    idCard = event.detail.idCard;
+
+    if (idCard == -1) return;
+    const response = await fetch(
+      `http://localhost:3000/transaction/?idCard=${idCard}&date_like=2023`
+    );
+    const jsonData = await response.json();
+    jsonData.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+    transactions = jsonData;
+
+    const meses = {
+      0: "Janeiro",
+      1: "Fevereiro",
+      2: "Março",
+      3: "Abril",
+      4: "Maio",
+      5: "Junho",
+      6: "Julho",
+      7: "Agosto",
+      8: "Setembro",
+      9: "Outubro",
+      10: "Novembro",
+      11: "Dezembro",
+    };
+
+    const obterSomatorioPorMes = (transactions) => {
+      const resultado = {};
+
+      transactions.forEach((obj) => {
+        const data = new Date(obj.date);
+        const mes = data.getMonth();
+        const valor = obj.value;
+        const idCard = obj.idCard;
+
+        if (!resultado[idCard]) {
+          resultado[idCard] = {
+            hist: Array.from({ length: 12 }, (_, i) => ({
+              month: meses[i],
+              value: 0,
+            })),
+          };
+        }
+
+        resultado[idCard].hist[mes].month = meses[mes];
+        resultado[idCard].hist[mes].value += valor;
+      });
+
+      return Object.values(resultado);
+    };
+
+    const resultado = obterSomatorioPorMes(transactions);
+    const splineCategories = resultado[0]["hist"].map((item) => item.month);
+    const splineValues = resultado[0]["hist"].map((item) => item.value);
 
     // @ts-ignore
     Highcharts.chart("spline-chart-container", {
@@ -122,7 +164,10 @@
         },
       ],
     });
-  });
+  }
+
+  onMount(async () => handleCustomEvent);
+
 </script>
 
 <div class="d-flex flex-col title-div">
@@ -135,7 +180,7 @@
 <div class="container">
   <div class="content-1">
     <p>Cartão Selecionado</p>
-    <SelectCard quantidadeExibida={1} />
+    <SelectCard quantidadeExibida={1} on:eventIdCard={handleCustomEvent} />
   </div>
   <div class="content-2"><div class="cart" id="pie-chart-container" /></div>
 </div>
@@ -173,6 +218,7 @@
       width: 100%;
       height: 400px;
       display: inline-block;
+      min-width: 520px;
     }
   }
 

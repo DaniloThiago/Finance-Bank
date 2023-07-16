@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import Card from "./Card.svelte";
   import VirtualCard from "./VirtualCard.svelte";
+
+  const dispatch = createEventDispatcher();
 
   let virtuais = [
     { value: 0, number: 34534468789873245 },
@@ -67,17 +69,18 @@
         if(i < cards.length) indices.push(cards[(idx + i) % cards.length]);
       }
     }
+    dispatch('eventIdCard', { idCard: indices[0].id });
     return indices;
   }
   export let quantidadeExibida = 3;
   export let is_virtual: boolean = false;
 </script>
 
-<article class="d-flex align-center justify-between">
+<article class="d-flex align-center justify-between w-100">
   <button on:click={anterior}>
     <img src="./src/assets/icons/arrow.svg" alt="Anterior" />
   </button>
-  <section>
+  <section class="mw-100 overflow-auto">
     {#if isLoading}
       <p>Carregando...</p>
     {:else}
@@ -100,7 +103,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: fit-content;
     section {
       display: flex;
       align-items: center;
