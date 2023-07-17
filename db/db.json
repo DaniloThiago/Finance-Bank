@@ -1,4 +1,7 @@
 {
+  "balance": {
+    "value": 1703
+  },
   "card": [{
       "id": 1,
       "flag": "master",
@@ -26,49 +29,90 @@
     }
   ],
   "transaction": [{
-    "id": 1,
-    "idCard": 1,
-    "date": "2023-06-30",
-    "description": "Compras de Mercado",
-    "tipoTransacao": 1,
-    "categoriaGasto": 2,
-    "value": 528,
-    "status": 1
-  }, {
-    "id": 2,
-    "idCard": 1,
-    "date": "2023-05-16",
-    "description": "Farmácia",
-    "tipoTransacao": 1,
-    "categoriaGasto": 1,
-    "value": 228,
-    "status": 1
-  }, {
-    "id": 3,
-    "idCard": 1,
-    "date": "2023-07-30",
-    "description": "Farmácia",
-    "tipoTransacao": 1,
-    "categoriaGasto": 1,
-    "value": 10.50,
-    "status": 0
-  }, {
-    "id": 4,
-    "idCard": 1,
-    "date": "2023-07-01",
-    "description": "Pagamento da Faculdade",
-    "tipoTransacao": 3,
-    "categoriaGasto": 3,
-    "value": 500,
-    "status": 0
-  }, {
-    "id": 5,
-    "idCard": 2,
-    "date": "2023-07-01",
-    "description": "Pagamento da Faculdade",
-    "tipoTransacao": 3,
-    "categoriaGasto": 3,
-    "value": 500,
-    "status": 0
-  }]
+      "id": 0,
+      "idCard": 0,
+      "date": "2023-01-01",
+      "description": "Depósito Inicial",
+      "tipoTransacao": 7,
+      "value": 1000,
+      "status": 1
+    },
+    {
+      "id": 1,
+      "idCard": 2,
+      "date": "2023-06-30",
+      "description": "Compras de Mercado",
+      "tipoTransacao": 5,
+      "categoriaGasto": 2,
+      "value": 528,
+      "status": 1
+    },
+    {
+      "id": 2,
+      "idCard": 1,
+      "date": "2023-05-16",
+      "description": "Farmácia",
+      "tipoTransacao": 5,
+      "categoriaGasto": 1,
+      "value": 228,
+      "status": 1
+    },
+    {
+      "id": 3,
+      "idCard": 1,
+      "date": "2023-07-15",
+      "description": "Farmácia",
+      "tipoTransacao": 5,
+      "categoriaGasto": 1,
+      "value": 10.5,
+      "status": 0
+    },
+    {
+      "id": 4,
+      "idCard": 0,
+      "date": "2023-07-01",
+      "description": "Pagamento da Faculdade",
+      "tipoTransacao": 4,
+      "categoriaGasto": 3,
+      "value": 500,
+      "status": 1
+    },
+    {
+      "id": 5,
+      "idCard": 0,
+      "date": "2023-07-01",
+      "description": "Pagamento da Faculdade",
+      "tipoTransacao": 4,
+      "categoriaGasto": 3,
+      "value": 500,
+      "status": 0
+    },
+    {
+      "id": 6,
+      "idCard": 0,
+      "date": "2023-05-31",
+      "description": "Pagamento do cartão Mastercard",
+      "tipoTransacao": 6,
+      "value": 228,
+      "status": 1
+    },
+    {
+      "id": 7,
+      "idCard": 0,
+      "date": "2023-06-30",
+      "description": "Pagamento do cartão Mastercard",
+      "tipoTransacao": 6,
+      "value": 528,
+      "status": 1
+    },
+    {
+      "id": 8,
+      "idCard": 0,
+      "date": "2023-06-30",
+      "description": "Depósito de Bolsa",
+      "tipoTransacao": 7,
+      "value": 1459,
+      "status": 1
+    }
+  ]
 }

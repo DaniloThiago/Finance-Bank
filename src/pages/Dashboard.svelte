@@ -6,14 +6,23 @@
   import MyCards from "../components/MyCards.svelte";
   import Transactions from "../components/Transactions.svelte";
   import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
+  import id from "date-fns/locale/id";
 
   let transactions: TransactionItemInterface[] = [];
-  
+  let balance: number = 0;
+
+  function sort(array, desc = true) {
+    if(desc) return array.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    else return array.sort((b, a) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  }
+
   onMount(async () => {
+    const responseBalance = await fetch("http://localhost:3000/balance");
+    balance = await responseBalance.json();
+
     let splineData;
-    const response = await fetch("http://localhost:3000/transaction");
+    const response = await fetch("http://localhost:3000/transaction/?date_like=2023");
     const jsonData = await response.json();
-    jsonData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     transactions = jsonData;
 
     const meses = {
@@ -31,46 +40,79 @@
       11: "Dezembro"
     };
 
-    const obterSomatorioPorMes = (transactions, ano) => {
+    const obterSomatorioPorMes = (transactions) => {
       const resultado = {};
 
       transactions.forEach(obj => {
         const data = new Date(obj.date);
-        const objAno = data.getFullYear();
+        data.setHours(data.getHours() + 3);
         const mes = data.getMonth();
         const valor = obj.value;
 
-        if (objAno === ano) {
-          const cardId = obj.idCard;
+        const cardId = obj.idCard;
 
-          if (!resultado[cardId]) {
-            resultado[cardId] = {
-              card: obj.idCard,
-              hist: Array.from({ length: 12 }, (_, i) => ({ month: meses[i], value: 0 }))
-            };
-          }
-
-          resultado[cardId].hist[mes].month = meses[mes];
-          resultado[cardId].hist[mes].value += valor;
+        if (!resultado[cardId]) {
+          resultado[cardId] = {
+            card: obj.idCard,
+            hist: Array.from({ length: 12 }, (_, i) => ({ month: meses[i], value: 0 }))
+          };
         }
+
+        resultado[cardId].hist[mes].month = meses[mes];
+        resultado[cardId].hist[mes].value += valor;
       });
 
       return Object.values(resultado);
     };
 
-    const anoDesejado = 2023;
-    const resultado = obterSomatorioPorMes(transactions, anoDesejado);
+    const cardTransaction = transactions.filter(item => item.idCard > 0);
+    const resultadoCardTransaction = obterSomatorioPorMes(cardTransaction);
 
-    splineData = await Promise.all(resultado.map(async (item: any) => {
-      const response: any = await fazerRequisicaoDoCartao(item.card); // Substitua pela sua lógica de requisição
+    const transactionCard = await Promise.all(resultadoCardTransaction.map(async (item: any) => {
+      const response: any = await fazerRequisicaoDoCartao(item.card);
       const flagValid = response.flag.charAt(0).toUpperCase() + response.flag.slice(1) + ' ' + response.valid; // Concatenação dos campos flag e valid
 
       return {
         ...item,
-        card: flagValid
+        label: flagValid
       };
     }));
 
+    const balanceTransaction = transactions.filter(item => item.idCard == 0);
+    
+    const resultado = [{
+      card: 0,
+      hist: Array.from({ length: 12 }, (_, i) => ({ month: meses[i], value: 0 }))
+    }];
+
+    const transactionBalanceTemp = sort(balanceTransaction, false)
+    const transactionBalance = await Promise.all(resultado.map(async (item: any) => {
+      item.hist.map((el, idx) => {
+        const dataCurrent = new Date();
+        const mesCurrent = dataCurrent.getMonth();
+        if(idx > 0 && idx <= mesCurrent ) el.value = item.hist[idx-1].value;
+        transactionBalanceTemp.map(t => {
+          const data = new Date(t.date);
+          data.setHours(data.getHours() + 3);
+          const mes = data.getMonth();
+          
+          if(meses[mes] == el.month && mes <= mesCurrent && t.status == 1) {
+            if([1,7].indexOf(t.tipoTransacao) == -1) {
+              el.value -= t.value
+            } else {
+              el.value += t.value
+            }
+          }
+        })
+      })
+
+      return {
+        ...item,
+        label: "Saldo"
+      };
+    }));
+
+    splineData = [...transactionCard, ...transactionBalance]
     function fazerRequisicaoDoCartao(idCard) {
       return fetch(`http://localhost:3000/card/${idCard}`)
       .then(response => response.json())
@@ -85,7 +127,7 @@
 
     const splineCategories = splineData[0].hist.map((item) => item.month);
     const transformedData = splineData.map((item) => ({
-      name: item.card,
+      name: item.label,
       data: item.hist.map((histItem) => histItem.value),
     }));
 
@@ -133,7 +175,7 @@
       <Total
         type="up"
         text="Saldo da Conta"
-        value={632.0}
+        value={balance['value']}
         percent={1.29}
         classe="w-50"
       />
@@ -146,7 +188,7 @@
       />
     </div>
     <div id="spline-chart-container" />
-    <Transactions transactions={transactions.slice(0,3)} />
+    <Transactions transactions={sort(transactions).slice(0,3)} />
   </div>
   <div class="item content-2">
     <MyCards />

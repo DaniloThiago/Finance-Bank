@@ -16,7 +16,7 @@
     </span>
     <span>
       <p>{text}</p>
-      <p>$ {value.toFixed(2)}</p>
+      <p>$ {value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
     </span>
     <span class="icon d-flex align-center justify-center {color}">
       +{percent}%

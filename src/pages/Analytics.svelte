@@ -19,7 +19,6 @@
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
     transactions = jsonData;
-
     const meses = {
       0: "Janeiro",
       1: "Fevereiro",
@@ -40,6 +39,7 @@
 
       transactions.forEach((obj) => {
         const data = new Date(obj.date);
+        data.setHours(data.getHours() + 3);
         const mes = data.getMonth();
         const valor = obj.value;
         const idCard = obj.idCard;
@@ -52,7 +52,6 @@
             })),
           };
         }
-
         resultado[idCard].hist[mes].month = meses[mes];
         resultado[idCard].hist[mes].value += valor;
       });
@@ -61,6 +60,7 @@
     };
 
     const resultado = obterSomatorioPorMes(transactions);
+    
     const splineCategories = resultado[0]["hist"].map((item) => item.month);
     const splineValues = resultado[0]["hist"].map((item) => item.value);
 
