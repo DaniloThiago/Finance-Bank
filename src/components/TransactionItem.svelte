@@ -5,16 +5,20 @@
 
   export let props: TransactionItemInterface;
 
-  const tiposTransacao = [
-    "RECEBIMENTO PIX",
-    "PAGAMENTO PIX",
-    "TRANSFERÊNCIA BANCÁRIA",
-    "PAGAMENTO BOLETO",
-    "CARTÃO DE CRÉDITO",
-  ];
+  const tiposTransacao = {
+    1: "RECEBIMENTO PIX",
+    2: "PAGAMENTO PIX",
+    3: "TRANSFERÊNCIA BANCÁRIA",
+    4: "PAGAMENTO BOLETO",
+    5: "CARTÃO DE CRÉDITO",
+    6: "PAGAMENTO DE FATURA",
+    7: "DEPÓSITO BANCÁRIO",
+  }
+  ;
   const tipoTransacao = tiposTransacao[props.tipoTransacao];
 
   const status = props.status == 1 ? "done" : "clear";
+  const DC = [1,7].indexOf(props.tipoTransacao) == -1 ? "D" : "C";
 
   const year = props.date.substring(0, 4);
   const monthName = format(
@@ -40,7 +44,7 @@
       <img src="../src/assets/icons/{status}.svg" alt={status} width="12" />
     </div>
   </td>
-  <td>- R${props.value}</td>
+  <td class="type-{DC}">{DC == "D" ? '-' : ''} R${props.value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
 </tr>
 
 <style type="text/scss" lang="scss">
@@ -74,6 +78,13 @@
 
       .clear {
         background: var(--c-lava-red);
+      }
+
+      &.type-D {
+        color: #c94747
+      }
+      &.type-C {
+        color: #8fb51f
       }
     }
   }

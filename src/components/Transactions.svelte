@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import TransactionItem from "./TransactionItem.svelte";
   import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
@@ -19,7 +18,7 @@
       <th>Status</th>
       <th>Valor</th>
     </tr>
-    {#each transactions as transaction, index}
+    {#each transactions as transaction}
         <TransactionItem props={transaction} />
     {/each}
   </tbody>

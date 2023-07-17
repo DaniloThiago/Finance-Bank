@@ -5,7 +5,6 @@
   let modal_toggle: boolean = false;
 
   const handleNewCard = () => {
-    console.log("Teste Criando Cartão...");
     modal_toggle = true;
   };
 </script>
@@ -14,7 +13,7 @@
   >Novo Cartão {is_virtual ? "Virtual" : "Físico"}</button
 >
 <Modal {modal_toggle}>
-  <img src="./src/assets/new_card.svg" alt="new_card" />
+  <img src="./src/assets/icons/new_card.svg" alt="new_card" />
   <p class="text-modal">Cartão criado com suceso!</p>
   <button
     class="btn-primary"

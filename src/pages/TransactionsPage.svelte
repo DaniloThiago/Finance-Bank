@@ -8,7 +8,7 @@
   let transactions: TransactionItemInterface[] = [];
   onMount(async () => {
     let splineData;
-    const response = await fetch("http://localhost:3000/transaction");
+    const response = await fetch("http://localhost:3000/transaction/");
     const jsonData = await response.json();
     jsonData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     transactions = jsonData;

@@ -33,7 +33,6 @@
         const transactionResponse = await fetch(transactionUrl);
         const transactionData = await transactionResponse.json();
         const totalValue = transactionData.reduce((total, transaction) => total + transaction.value, 0);
-        console.log(transactionData)
         card.value = totalValue;
       }
 

@@ -1,10 +1,10 @@
 export interface TransactionItemInterface {
   id: number;
-  idCard: number;
+  idCard?: number;
   date: string;
   description: string;
   tipoTransacao: number;
-  categoriaGasto: number;
+  categoriaGasto?: number;
   value: number;
   status: number;
 }
