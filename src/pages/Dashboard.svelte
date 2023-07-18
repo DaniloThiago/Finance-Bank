@@ -5,8 +5,9 @@
   import PixCard from "../components/PixCard.svelte";
   import MyCards from "../components/MyCards.svelte";
   import Transactions from "../components/Transactions.svelte";
+  import { requestSignal } from '../store/store.js';
+
   import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
-  import id from "date-fns/locale/id";
 
   let transactions: TransactionItemInterface[] = [];
   let balance: number = 0;
@@ -16,9 +17,17 @@
     else return array.sort((b, a) => new Date(b.date).getTime() - new Date(a.date).getTime())
   }
 
-  onMount(async () => {
+  requestSignal.subscribe(signal => {
+    if (signal) {
+      renderDashboard()
+      requestSignal.set(false);
+    }
+  });
+
+  async function renderDashboard() {
     const responseBalance = await fetch("http://localhost:3000/balance");
     balance = await responseBalance.json();
+    console.log(balance)
 
     let splineData;
     const response = await fetch("http://localhost:3000/transaction/?date_like=2023");
@@ -161,7 +170,9 @@
         },
       },
     });
-  });
+  }
+
+  onMount(() => renderDashboard());
 </script>
 
 <div class="d-flex flex-col title-div">
@@ -175,14 +186,14 @@
       <Total
         type="up"
         text="Saldo da Conta"
-        value={balance['value']}
+        value={balance['in']}
         percent={1.29}
         classe="w-50"
       />
       <Total
         type="down"
         text="Total de Gastos"
-        value={632.0}
+        value={balance['out']}
         percent={1.29}
         classe="w-50"
       />

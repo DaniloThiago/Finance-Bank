@@ -14,7 +14,7 @@
     6: "PAGAMENTO DE FATURA",
     7: "DEPÓSITO BANCÁRIO",
   }
-  ;
+  
   const tipoTransacao = tiposTransacao[props.tipoTransacao];
 
   const status = props.status == 1 ? "done" : "clear";

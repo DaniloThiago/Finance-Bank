@@ -1,5 +1,6 @@
 <script lang="ts">
   import Modal from "./Modal.svelte";
+  import { requestSignal } from '../store/store.js';
 
   let modal_toggle: boolean = false;
 
@@ -14,7 +15,7 @@
   let isValuePixValid = true;
   let isDescricaoPixValid = true;
 
-  function validateTransaction() {
+  async function validateTransaction() {
     if (chavePIX.trim() === '') {
       isChavePIXValid = false;
     } else {
@@ -44,38 +45,60 @@
     const day = String(date.getDate()).padStart(2, '0');
 
     const formattedDate = `${year}-${month}-${day}`;
+    try {
+      const responseBalance = await fetch("http://localhost:3000/balance");
+      const balance = await responseBalance.json();
+      
+      if(valuePix > balance.in) return alert('Sem saldo em conta!')
 
-    const data = {
-      idCard: 0,
-      date: formattedDate,
-      description: descricaoPix.trim(),
-      tipoTransacao: 2,
-      value: valuePix,
-      status: 1
-    };
+      const data = {
+        idCard: 0,
+        date: formattedDate,
+        description: descricaoPix.trim(),
+        tipoTransacao: 2, // PAGAMENTO PIX
+        value: valuePix,
+        status: 1
+      };
 
-    fetch('http://localhost:3000/transaction', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log('Post successful:', result);
+      const responseTransaction = await fetch('http://localhost:3000/transaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      if(responseTransaction.ok) {
+        const transaction = await responseTransaction.json();
 
-
-      chavePIX = '';
-      valuePix = '';
-      descricaoPix = '';
-      isChavePIXValid = true;
-      isValuePixValid = true;
-      isDescricaoPixValid = true;
+        const data = {
+          in: balance.in - transaction.value,
+          out: balance.out + transaction.value
+        };
+        const responseBalance = await fetch('http://localhost:3000/balance', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        if (responseBalance.ok) {
+          requestSignal.set(true);
+        } else {
+          console.error('Falha na solicitação:', responseBalance.status);
+        }
+      } 
+    } catch (error) {
+      console.log('Erro na solicitação:', error);
+    }
+  
+    chavePIX = '';
+    valuePix = '';
+    descricaoPix = '';
+    isChavePIXValid = true;
+    isValuePixValid = true;
+    isDescricaoPixValid = true;
+    
+    modal_toggle = false;
   }
   </script>
 
