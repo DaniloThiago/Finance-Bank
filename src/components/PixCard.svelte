@@ -2,7 +2,29 @@
   import Modal from "./Modal.svelte";
   import { requestSignal } from '../store/store.js';
 
+
   let modal_toggle: boolean = false;
+  let modal_toggle_pix: boolean = false;
+  let base64Image: string = '';
+
+  const handlerCodePix = async () => {
+    modal_toggle = true;
+    modal_toggle_pix = true;
+    base64Image = '';
+    valuePix = '';
+  }
+
+  const createCode = () => {
+    const data = {
+      nome: 'Danilo Thiago Alves de Oliveira',
+      cidade: 'Natal',
+      chave: chavePIX.trim(),
+      valor: valuePix,
+      saida: 'qr'
+    }
+    const queryString = new URLSearchParams(data).toString();
+    base64Image = `https://gerarqrcodepix.com.br/api/v1?${queryString}`;
+  }
 
   const handleNewCard = () => {
     modal_toggle = true;
@@ -16,28 +38,38 @@
   let isDescricaoPixValid = true;
 
   async function validateTransaction() {
-    if (chavePIX.trim() === '') {
-      isChavePIXValid = false;
-    } else {
-      isChavePIXValid = true;
-    }
+    isValuePixValid = true;
+    isChavePIXValid = true;
+    isDescricaoPixValid = true;
+    
+    if(modal_toggle_pix) {
+      if (chavePIX.trim() === '') {
+        isChavePIXValid = false;
+      }
 
-    if (valuePix <= 0) {
-      isValuePixValid = false;
+      if (valuePix <= 0) {
+        isValuePixValid = false;
+      }
     } else {
-      isValuePixValid = true;
-    }
-
-    if (descricaoPix.trim() === '') {
-      isDescricaoPixValid = false;
-    } else {
-      isDescricaoPixValid = true;
+      if (chavePIX.trim() === '') {
+        isChavePIXValid = false;
+      }
+  
+      if (valuePix <= 0) {
+        isValuePixValid = false;
+      }
+  
+      if (descricaoPix.trim() === '') {
+        isDescricaoPixValid = false;
+      }
     }
 
     if (!isChavePIXValid || !isValuePixValid || !isDescricaoPixValid) {
       alert('Por favor, preencha o campo sinalizado');
       return;
     }
+
+    if(modal_toggle_pix) return createCode();
 
     const date = new Date();
     const year = date.getFullYear();
@@ -94,11 +126,13 @@
     chavePIX = '';
     valuePix = '';
     descricaoPix = '';
+    base64Image = '';
     isChavePIXValid = true;
     isValuePixValid = true;
     isDescricaoPixValid = true;
     
     modal_toggle = false;
+    modal_toggle_pix = false;
   }
   </script>
 
@@ -109,7 +143,7 @@
   >
   <div class="d-flex flex-col">
     <button class="btn-primary" on:click={handleNewCard}>Pagar com pix</button>
-    <button class="btn-secondary d-flex align-center justify-center">
+    <button class="btn-secondary d-flex align-center justify-center" on:click={handlerCodePix}>
       Gerar código
       <img src="./src/assets/icons/trending_flat.svg" alt="" />
     </button>
@@ -120,28 +154,51 @@
   <section id="modal-pix">
     <button id="close-modal-pix" on:click={() => {
       modal_toggle = false;
+      modal_toggle_pix = false;
     }}>
       <img src="./src/assets/icons/clear.svg" alt="Clear">
     </button>
+    
+    {#if modal_toggle && !modal_toggle_pix}
     <img src="./src/assets/icons/pix.svg" alt="PIX" />
+    {:else}
+    
+      {#if base64Image != ''}
+        <img src={base64Image} class="pix" alt="Imagem Base64">
+      {/if}
+    {/if}
+
     <div>
-      <span id="ctChavePIX" class:invalid={!isChavePIXValid}>
-        <label for="ChavePIX">Chave PIX:</label>
-        <input type="text" id="ChavePIX" bind:value={chavePIX}>
-      </span>
+      {#if modal_toggle || modal_toggle_pix}
+        <span id="ctChavePIX" class:invalid={!isChavePIXValid}>
+          <label for="ChavePIX">Chave PIX:</label>
+          <input type="text" id="ChavePIX" bind:value={chavePIX}>
+        </span>
+      {/if}
 
-      <span id="ctValuePix" class:invalid={!isValuePixValid}>
-        <label for="ValuePix">VALOR:</label>
-        <input type="number" name="value" id="ValuePix" bind:value={valuePix}>
-      </span>
+      {#if modal_toggle_pix || modal_toggle}
+        <span id="ctValuePix" class:invalid={!isValuePixValid}>
+          <label for="ValuePix">VALOR:</label>
+          <input type="number" name="value" id="ValuePix" bind:value={valuePix}>
+        </span>
+      {/if}
 
+      {#if modal_toggle && !modal_toggle_pix}
       <span id="ctDescricaoPix" class:invalid={!isDescricaoPixValid}>
         <label for="DescricaoPix">DESCRIÇÃO:</label>
         <input type="text" name="descricao" id="DescricaoPix" bind:value={descricaoPix}>
       </span>
+      {/if}
+      
       <button
-        class="w-100 btn-primary"
-        on:click={() => validateTransaction()}>PAGAR</button>
+      class="w-100 btn-primary"
+      on:click={() => validateTransaction()}>
+        {#if modal_toggle && modal_toggle_pix}
+          SOLICITAR
+        {:else}
+          PAGAR
+        {/if}
+      </button>
     </div>
   </section>
 </Modal>
@@ -161,6 +218,8 @@
       }
     }
     #close-modal-pix {
+      top: 0;
+      left: 0;
       color: var(--c-white);
       background-color: var(--c-lava-red);
       width: 3rem;
@@ -182,6 +241,9 @@
     > img {
       width: 20%;
       margin-right: 2rem;
+      &.pix {
+        width: 256px;
+      }
     }
     button {
       cursor: pointer;
