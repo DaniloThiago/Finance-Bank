@@ -5,7 +5,7 @@
   import PixCard from "../components/PixCard.svelte";
   import MyCards from "../components/MyCards.svelte";
   import Transactions from "../components/Transactions.svelte";
-  import { requestSignal } from '../store/store.js';
+  import { requestSignal } from '../store/store';
 
   import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
 
@@ -27,7 +27,6 @@
   async function renderDashboard() {
     const responseBalance = await fetch("http://localhost:3000/balance");
     balance = await responseBalance.json();
-    console.log(balance)
 
     let splineData;
     const response = await fetch("http://localhost:3000/transaction/?date_like=2023");

@@ -1,8 +1,17 @@
 <script lang="ts">
   import TransactionItem from "./TransactionItem.svelte";
   import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
+  import { requestSignalInsert } from "../store/store";
 
   export let transactions: TransactionItemInterface[] = [];
+
+  requestSignalInsert.subscribe((signal) => {
+    if (signal.status) {
+      console.log(signal)
+      transactions = [ signal.element, ...transactions];
+      requestSignalInsert.set({ status: false, element: {} });
+    }
+  });
 </script>
 
 <table>

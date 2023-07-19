@@ -1,5 +1,5 @@
 export interface TransactionItemInterface {
-  id: number;
+  id?: number;
   idCard?: number;
   date: string;
   description: string;

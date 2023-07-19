@@ -1,18 +1,21 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import PixCard from "../components/PixCard.svelte";
   import MyCards from "../components/MyCards.svelte";
   import Transactions from "../components/Transactions.svelte";
   import { type TransactionItemInterface } from "../interfaces/TransactionItem.interface";
-  import { onMount } from "svelte";
 
   let transactions: TransactionItemInterface[] = [];
-  onMount(async () => {
-    let splineData;
+
+  async function renderTransactions() {
     const response = await fetch("http://localhost:3000/transaction/");
     const jsonData = await response.json();
     jsonData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     transactions = jsonData;
-  })
+  }
+
+  onMount(() => renderTransactions());
+
 </script>
 
 <div class="d-flex flex-col title-div">
