@@ -15,14 +15,14 @@
     <p class="title">Cartões Físicos</p>
     <NewCard />
   </div>
-  <SelectCard />
+  <SelectCard is_edit_delete={true} />
 </div>
 <div class="content d-flex flex-col align-center">
   <div class="d-flex justify-between w-100">
     <p class="title">Cartões Virtuais</p>
     <NewCard is_virtual={true} />
   </div>
-  <SelectCard is_virtual={true} />
+  <SelectCard is_virtual={true} is_edit_delete={true} />
 </div>
 
 <style lang="scss">
