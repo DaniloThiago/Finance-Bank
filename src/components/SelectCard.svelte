@@ -2,23 +2,19 @@
   import { createEventDispatcher, onMount } from "svelte";
   import Card from "./Card.svelte";
   import VirtualCard from "./VirtualCard.svelte";
+  import type CardInterface from "../interfaces/Card.interface";
 
   const dispatch = createEventDispatcher();
-
-  let virtuais = [
-    { value: 0, number: 34534468789873245 },
-    { value: 1000, number: 52823456712312313 },
-    { value: 30000, number: 78901289598645649 },
-    { value: 10, number: 23131311312313231 },
-    { value: 30, number: 53453454365676828 },
-  ];
 
   let cards: any[];
   let isLoading = true;
 
   onMount(async () => {
     try {
-      const url = "http://localhost:3000/card";
+      
+      let url = "http://localhost:3000/card";
+      if (is_virtual) url = "http://localhost:3000/virtual";
+
       const response = await fetch(url);
       const jsonData = await response.json();
       cards = jsonData;
@@ -28,12 +24,20 @@
       const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // Formata o mês com dois dígitos
 
       for (const card of cards) {
-        const idCard = card.id;
+        let idCard = card.id;
+        if (is_virtual) idCard = card.idCard;
         const transactionUrl = `http://localhost:3000/transaction/?idCard=${idCard}&date_like=${currentYear}-${currentMonth}`;
         const transactionResponse = await fetch(transactionUrl);
         const transactionData = await transactionResponse.json();
         const totalValue = transactionData.reduce((total, transaction) => total + transaction.value, 0);
         card.value = totalValue;
+
+        if(is_virtual){ // pega cartao fisico associado
+          const url = `http://localhost:3000/card/${idCard}`;
+          const response = await fetch(url);
+          const jsonData : CardInterface = await response.json();
+          card.associate_card = jsonData;
+        }
       }
 
       isLoading = false;
@@ -46,33 +50,24 @@
   let indiceAtual = 0;
 
   function anterior() {
-    if (is_virtual) {
-      return indiceAtual = (indiceAtual - 1 + virtuais.length) % virtuais.length;
-    }
     indiceAtual = (indiceAtual - 1 + cards.length) % cards.length;
   }
 
   function proximo() {
-    if (is_virtual) {
-      return  indiceAtual = (indiceAtual + 1) % virtuais.length;
-    }
     indiceAtual = (indiceAtual + 1) % cards.length;
   }
 
   function getIndicesExibicao(idx) {
     const indices = [];
     for (let i = 0; i < quantidadeExibida; i++) {
-      if (is_virtual) {
-        if(i < virtuais.length) indices.push(virtuais[(idx + i) % virtuais.length]);
-      } else {
-        if(i < cards.length) indices.push(cards[(idx + i) % cards.length]);
-      }
+      if(i < cards.length) indices.push(cards[(idx + i) % cards.length]);
     }
     dispatch('eventIdCard', { idCard: indices[0].id });
     return indices;
   }
   export let quantidadeExibida = 3;
   export let is_virtual: boolean = false;
+  export let is_edit_delete = false;
 </script>
 
 <article class="d-flex align-center justify-between w-100">
@@ -85,9 +80,9 @@
     {:else}
       {#each getIndicesExibicao(indiceAtual) as card}
         {#if is_virtual}
-          <VirtualCard card={card} />
+          <VirtualCard {card} {is_edit_delete} card_value={card.value} associate_card = {card.associate_card} />
         {:else}
-          <Card {card} />
+          <Card {card} {is_edit_delete} card_value={card.value} />
         {/if}
       {/each}
     {/if}
