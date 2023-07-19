@@ -1,23 +1,35 @@
 <script lang="ts">
   import type CardInterface from "../interfaces/Card.interface";
+  import type VirtualCardInterface from "../interfaces/VirtualCard.interface";
+  import { onMount } from "svelte";
+  import CardEditDelete from "./CardEditDelete.svelte";
 
-  export let card: any;
+  export let card: VirtualCardInterface;
+  export let associate_card: CardInterface;
+  export let card_value: number = 0;
+  export let is_edit_delete = false;
+
 </script>
 
 <article class="d-flex justify-evenly align-center" style="">
-  <div class="left d-flex flex-col justify-center">
+  <div class="left d-flex flex-col justify-center flex-col align-center">
     <img
       class="logo"
       src="./src/assets/icons/account_balance.svg"
       alt="account_balance"
       height="50"
     />
+    <img
+    src="./src/assets/logo/{associate_card.flag == 'master' ? 'mastercard' : associate_card.flag}.svg"
+    alt="flag"
+    width="28"
+  />
   </div>
   <div class="vertical-line" />
   <div class="right d-flex justify-between flex-col">
     <span class="title">Fatura do Cartão</span>
     <span class="value"
-      >R$ {card.value.toLocaleString("pt-BR", {
+      >R$ {card_value.toLocaleString("pt-BR", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}</span
@@ -29,6 +41,7 @@
         .join(" ")}
     </span>
   </div>
+  <CardEditDelete card={associate_card} card_virtual={card} {is_edit_delete} />
 </article>
 
 <style type="text/scss" lang="scss">
