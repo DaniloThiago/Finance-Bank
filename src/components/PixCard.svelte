@@ -1,7 +1,6 @@
 <script lang="ts">
   import Modal from "./Modal.svelte";
-  import { requestSignal } from '../store/store.js';
-
+  import { requestSignal, requestSignalInsert } from '../store/store';
 
   let modal_toggle: boolean = false;
   let modal_toggle_pix: boolean = false;
@@ -30,7 +29,7 @@
       const responseGetBalance = await fetch("http://localhost:3000/balance");
       const balance = await responseGetBalance.json();
       
-      const data = {
+      const dataPix = {
         idCard: 0,
         date: getDate(),
         description: 'Recebimento via PIX',
@@ -44,10 +43,11 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataPix),
       });
 
       if(responseTransaction.ok) {
+        requestSignalInsert.set({status: true, element: dataPix});
         const transaction = await responseTransaction.json();
         const data = { in: balance.in + transaction.value };
 
@@ -58,6 +58,7 @@
           },
           body: JSON.stringify(data),
         });
+
 
         if (responsePatchBalance.ok) {
           requestSignal.set(true);
