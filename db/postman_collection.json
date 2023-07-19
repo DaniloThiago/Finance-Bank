@@ -26,6 +26,25 @@
 			"response": []
 		},
 		{
+			"name": "Get All Virtual Cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/virtual",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get  Card",
 			"request": {
 				"method": "GET",

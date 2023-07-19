@@ -2,33 +2,42 @@
   "balance": {
     "value": 1703
   },
-  "card": [{
+  "card": [
+    {
       "id": 1,
       "flag": "master",
       "limite": 16000,
       "number": 5282345678901289,
-      "valid": "09/25"
+      "valid": "09/25",
+      "cvv": 100,
+      "titular": "João Gomes"
     },
     {
       "id": 2,
       "flag": "visa",
       "limite": 8000,
       "number": 1289528264567890,
-      "valid": "08/25"
+      "valid": "08/25",
+      "cvv": 123,
+      "titular": "João Gomes"
     }
   ],
-  "virtual": [{
+  "virtual": [
+    {
       "id": 1,
       "idCard": 1,
-      "number": 5282345678901290
+      "number": 5282345678901290,
+      "cvv": 789
     },
     {
       "id": 2,
       "idCard": 2,
-      "number": 1289528264567891
+      "number": 1289528264567891,
+      "cvv": 456
     }
   ],
-  "transaction": [{
+  "transaction": [
+    {
       "id": 0,
       "idCard": 0,
       "date": "2023-01-01",
@@ -113,6 +122,15 @@
       "tipoTransacao": 7,
       "value": 1459,
       "status": 1
+    },
+    {
+      "idCard": 0,
+      "date": "2023-07-17",
+      "description": "teste",
+      "tipoTransacao": 2,
+      "value": 12,
+      "status": 1,
+      "id": 9
     }
   ]
 }
