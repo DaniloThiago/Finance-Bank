@@ -14,7 +14,7 @@
     valuePix = '';
   }
 
-  const createCode = () => {
+  const createCode = async () => {
     const data = {
       nome: 'Danilo Thiago Alves de Oliveira',
       cidade: 'Natal',
@@ -22,8 +22,52 @@
       valor: valuePix,
       saida: 'qr'
     }
+
     const queryString = new URLSearchParams(data).toString();
     base64Image = `https://gerarqrcodepix.com.br/api/v1?${queryString}`;
+
+    try {
+      const responseGetBalance = await fetch("http://localhost:3000/balance");
+      const balance = await responseGetBalance.json();
+      
+      const data = {
+        idCard: 0,
+        date: getDate(),
+        description: 'Recebimento via PIX',
+        tipoTransacao: 1, // RECEBIMENTO PIX
+        value: valuePix,
+        status: 1
+      };
+
+      const responseTransaction = await fetch('http://localhost:3000/transaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if(responseTransaction.ok) {
+        const transaction = await responseTransaction.json();
+        const data = { in: balance.in + transaction.value };
+
+        const responsePatchBalance = await fetch('http://localhost:3000/balance', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (responsePatchBalance.ok) {
+          requestSignal.set(true);
+        } else {
+          console.error('Falha na solicitação:', responsePatchBalance.status);
+        }
+      } 
+    } catch (error) {
+      console.log('Erro na solicitação:', error);
+    }
   }
 
   const handleNewCard = () => {
@@ -71,21 +115,16 @@
 
     if(modal_toggle_pix) return createCode();
 
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    const formattedDate = `${year}-${month}-${day}`;
+    
     try {
-      const responseBalance = await fetch("http://localhost:3000/balance");
-      const balance = await responseBalance.json();
+      const responseGetBalance = await fetch("http://localhost:3000/balance");
+      const balance = await responseGetBalance.json();
       
       if(valuePix > balance.in) return alert('Sem saldo em conta!')
 
       const data = {
         idCard: 0,
-        date: formattedDate,
+        date: getDate(),
         description: descricaoPix.trim(),
         tipoTransacao: 2, // PAGAMENTO PIX
         value: valuePix,
@@ -106,23 +145,27 @@
           in: balance.in - transaction.value,
           out: balance.out + transaction.value
         };
-        const responseBalance = await fetch('http://localhost:3000/balance', {
+        const responsePatchBalance = await fetch('http://localhost:3000/balance', {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
         });
-        if (responseBalance.ok) {
+        if (responsePatchBalance.ok) {
           requestSignal.set(true);
         } else {
-          console.error('Falha na solicitação:', responseBalance.status);
+          console.error('Falha na solicitação:', responsePatchBalance.status);
         }
       } 
     } catch (error) {
       console.log('Erro na solicitação:', error);
     }
-  
+
+    clearPix();
+  }
+
+  function clearPix() {
     chavePIX = '';
     valuePix = '';
     descricaoPix = '';
@@ -133,6 +176,15 @@
     
     modal_toggle = false;
     modal_toggle_pix = false;
+  }
+
+  function getDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
   </script>
 
@@ -153,8 +205,7 @@
 <Modal {modal_toggle} size="lg">
   <section id="modal-pix">
     <button id="close-modal-pix" on:click={() => {
-      modal_toggle = false;
-      modal_toggle_pix = false;
+      clearPix();
     }}>
       <img src="./src/assets/icons/clear.svg" alt="Clear">
     </button>
