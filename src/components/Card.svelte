@@ -1,6 +1,10 @@
 <script lang="ts">
   import type CardInterface from "../interfaces/Card.interface";
-  export let card: any;
+  import CardEditDelete from "./CardEditDelete.svelte";
+  
+  export let card: CardInterface;
+  export let card_value: number;
+  export let is_edit_delete = false;
 
   let img_alt = '';
   $ : img_alt = card.flag == 'visa'? 'visa' : 'mastercard';
@@ -9,7 +13,7 @@
 <article class="d-flex justify-evenly" style="{img_alt == 'visa' ? 'background: var(--g-visa)' : ''}">
   <div class="left d-flex justify-between flex-col">
     <span class="title">Fatura do Cartão</span>
-    <span class="value">R$ {card.value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+    <span class="value">R$ {card_value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
     <span class="number">
       {card.number.toString().match(/.{1,4}/g).join(' ')}
     </span>
@@ -20,6 +24,7 @@
       {card.valid}
     </span>
   </div>
+<CardEditDelete card={card} {is_edit_delete} />
 </article>
 
 <style type="text/scss" lang="scss">
